@@ -1,7 +1,7 @@
 import { useId, useState } from 'react'
 
-import { useProducts } from '../../../features/products/useProducts'
 import type { Product } from '../../../features/products/types'
+import type { ProductsState } from '../../../features/products/useProducts'
 import chevron from '../../../assets/icons/chevron-left.svg'
 import styles from './ProductShelf.module.scss'
 
@@ -44,10 +44,9 @@ function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect
   )
 }
 
-export function ProductShelf({ withTabs = false, onSelect }: { withTabs?: boolean; onSelect: (product: Product) => void }) {
+export function ProductShelf({ state, onRetry, withTabs = false, onSelect }: { state: ProductsState; onRetry: () => void; withTabs?: boolean; onSelect: (product: Product) => void }) {
   const titleId = useId()
   const [activeTab, setActiveTab] = useState(tabs[0])
-  const { state, retry } = useProducts()
   return (
     <section aria-labelledby={titleId} className={styles.shelf}>
       <h2 id={titleId}>Produtos relacionados</h2>
@@ -57,7 +56,7 @@ export function ProductShelf({ withTabs = false, onSelect }: { withTabs?: boolea
         </div>
       ) : <a className={styles.viewAll} href="#produtos">Ver todos</a>}
       {state.status === 'loading' && <p className={styles.feedback}>Carregando produtos...</p>}
-      {state.status === 'error' && <div className={styles.feedback} role="alert"><p>{state.message}</p><button onClick={retry} type="button">Tentar novamente</button></div>}
+      {state.status === 'error' && <div className={styles.feedback} role="alert"><p>{state.message}</p><button onClick={onRetry} type="button">Tentar novamente</button></div>}
       {state.status === 'success' && (state.products.length ? <ProductCarousel onSelect={onSelect} products={state.products} /> : <p className={styles.feedback}>Nenhum produto encontrado no momento.</p>)}
     </section>
   )

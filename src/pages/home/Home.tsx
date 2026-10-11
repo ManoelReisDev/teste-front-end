@@ -8,19 +8,24 @@ import { PartnerBanners } from './PartnerBanners/PartnerBanners'
 import { ProductShelf } from './ProductShelf/ProductShelf'
 import { ProductModal } from './ProductModal/ProductModal'
 import type { Product } from '../../features/products/types'
+import { useProducts } from '../../features/products/useProducts'
 import styles from './Home.module.scss'
 
 export function Home() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const { state, retry } = useProducts()
   return (
     <div className={styles.page}>
       <Header />
       <main className={styles.main}>
         <HeroBanner />
         <CategoryList />
-        <ProductShelf onSelect={setSelectedProduct} withTabs />
+        <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} withTabs />
         <PartnerBanners />
+        <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} />
+        <PartnerBanners title="Mais parceiros" />
         <BrandList />
+        <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} />
         <ProductModal onClose={() => setSelectedProduct(null)} product={selectedProduct} />
       </main>
       <Footer />
