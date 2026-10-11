@@ -28,16 +28,17 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (produ
 function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect: (product: Product) => void }) {
   const [start, setStart] = useState(0)
   const visible = 4
-  const canNext = start + visible < products.length
+  const maxStart = Math.max(0, products.length - visible)
+  const canNext = start < maxStart
   return (
     <div aria-label="Produtos relacionados" className={styles.carousel} role="region">
-      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={start === 0} onClick={() => setStart(Math.max(0, start - 1))} type="button">
+      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={start === 0} onClick={() => setStart(Math.max(0, start - visible))} type="button">
         <img alt="" src={chevron} />
       </button>
       <ul className={styles.products}>
         {products.slice(start, start + visible).map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
       </ul>
-      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => setStart(start + 1)} type="button">
+      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => setStart(Math.min(maxStart, start + visible))} type="button">
         <img alt="" className={styles.flipped} src={chevron} />
       </button>
     </div>
