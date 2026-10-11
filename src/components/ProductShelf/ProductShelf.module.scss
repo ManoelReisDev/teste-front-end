@@ -14,6 +14,30 @@
   }
 }
 
+.heading {
+  display: flex;
+  width: min(71.125rem, 100%);
+  align-items: center;
+  gap: 2.125rem;
+  margin-inline: auto;
+
+  h2 {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}
+
+.divider {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+
+  img {
+    display: block;
+    max-width: none;
+  }
+}
+
 .panel {
   min-width: 0;
   margin-top: tokens.$space-6;
@@ -41,3 +65,8 @@
 }
 .feedback { margin: tokens.$space-7 auto; text-align: center; }
 .feedback button { padding: tokens.$space-3 tokens.$space-5; border: 0; border-radius: tokens.$radius-sm; background: tokens.$color-primary; color: tokens.$color-white; cursor: pointer; }
+
+@media (max-width: 48rem) {
+  .heading { display: block; }
+  .divider { display: none; }
+}

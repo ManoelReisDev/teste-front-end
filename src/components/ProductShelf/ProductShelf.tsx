@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 
+import shelfDivider from '../../assets/icons/shelf-divider.svg'
 import type { Product } from '../../features/products/types'
 import type { ProductsState } from '../../features/products/useProducts'
 import { Carousel } from './Carousel/Carousel'
@@ -14,6 +15,7 @@ const shelfTabs: ShelfTab[] = [
   { id: 'tablets', label: 'Tablets' },
   { id: 'notebooks', label: 'Notebooks' },
   { id: 'televisions', label: 'TVs' },
+  { id: 'all', label: 'Ver todos' },
 ]
 
 const skeletons = Array.from({ length: 4 }, (_, index) => index)
@@ -42,7 +44,15 @@ export function ProductShelf({
   // A seção coordena estados e composição; cada parte visual possui responsabilidade própria.
   return (
     <section aria-labelledby={titleId} className={styles.shelf}>
-      <h2 id={titleId}>{title}</h2>
+      <div className={styles.heading}>
+        <span aria-hidden="true" className={styles.divider}>
+          <img alt="" src={shelfDivider} />
+        </span>
+        <h2 id={titleId}>{title}</h2>
+        <span aria-hidden="true" className={styles.divider}>
+          <img alt="" src={shelfDivider} />
+        </span>
+      </div>
       {variant === 'tabs' ? (
         <ShelfTabs activeId={activeTab} idPrefix={baseId} onChange={setActiveTab} tabs={shelfTabs} />
       ) : (
