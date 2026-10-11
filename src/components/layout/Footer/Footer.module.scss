@@ -1,0 +1,193 @@
+@use '../../../styles/tokens' as tokens;
+
+.footer {
+  width: 100%;
+}
+
+.institutional {
+  min-height: 17.625rem;
+  background: #f4f4f4;
+}
+
+.institutionalInner {
+  display: grid;
+  grid-template-columns: 22.125rem 1px minmax(0, 1fr);
+  gap: 5.625rem;
+  align-items: center;
+  width: min(calc(100% - 10rem), tokens.$layout-container);
+  min-height: 17.625rem;
+  padding: 2.625rem 0;
+  margin: 0 auto;
+}
+
+.brand {
+  display: grid;
+  gap: 1.6875rem;
+  align-content: center;
+}
+
+.brandCopy {
+  display: grid;
+  gap: tokens.$space-5;
+
+  > a {
+    width: 10.25rem;
+    min-height: 3rem;
+    padding: 0;
+  }
+
+  img {
+    display: block;
+  }
+
+  p {
+    max-width: 22.125rem;
+    margin: 0;
+    color: tokens.$color-text;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: normal;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+
+  a {
+    padding: tokens.$space-3;
+  }
+
+  img {
+    display: block;
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1px;
+  height: 12.375rem;
+}
+
+.dividerImage {
+  flex: 0 0 auto;
+  transform: rotate(90deg);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 6.25rem;
+  color: rgba(34, 34, 34, 0.71);
+  white-space: nowrap;
+}
+
+.column {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+
+  h2 {
+    margin: 0;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  a {
+    line-height: 1rem;
+  }
+}
+
+.poppinsLink {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.927625rem;
+  padding: 0.8125rem 1.5rem;
+  background: tokens.$color-white;
+
+  p {
+    margin: 0;
+    color: tokens.$color-text;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 300;
+    line-height: normal;
+    text-align: center;
+  }
+}
+
+@media (max-width: 74rem) {
+  .institutionalInner {
+    grid-template-columns: minmax(15rem, 1fr) 1px minmax(0, 2fr);
+    gap: tokens.$space-8;
+    width: min(calc(100% - 4rem), tokens.$layout-container);
+  }
+
+  .columns {
+    justify-content: space-between;
+    gap: tokens.$space-7;
+  }
+}
+
+@media (max-width: 56rem) {
+  .institutionalInner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: tokens.$space-7;
+  }
+
+  .brandCopy p {
+    max-width: 100%;
+  }
+
+  .divider {
+    width: 12.375rem;
+    height: 1px;
+  }
+
+  .dividerImage {
+    transform: none;
+  }
+
+  .columns {
+    width: 100%;
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .institutionalInner {
+    width: calc(100% - 3rem);
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: tokens.$space-7;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 23.4375rem) {
+  .institutionalInner {
+    width: calc(100% - 2rem);
+  }
+}

@@ -18,7 +18,7 @@ npm run build
 npm run preview
 ```
 
-O bootstrap atual renderiza a Home mínima. A vitrine de produtos, o consumo do JSON remoto e o modal serão implementados nas próximas especificações.
+A Home atual integra Header, conteúdo principal mínimo e Footer com newsletter. A vitrine de produtos, o consumo do JSON remoto e o modal serão implementados nas próximas especificações.
 
 ### Vem ser #Econverse!
 

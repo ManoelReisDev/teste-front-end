@@ -1,0 +1,246 @@
+@use '../../../styles/tokens' as tokens;
+
+.header {
+  width: 100%;
+  background: tokens.$color-white;
+  color: tokens.$color-icon-muted;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+.benefitsBar {
+  height: 2rem;
+  border-bottom: 1px solid tokens.$color-border-light;
+}
+
+.benefits {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 7.4375rem;
+  max-width: tokens.$layout-container;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  img {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 auto;
+  }
+
+  strong {
+    color: tokens.$color-accent-dark;
+    font-weight: 600;
+  }
+}
+
+.mainBar {
+  display: flex;
+  width: min(100%, tokens.$layout-container);
+  min-height: 4.5rem;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.logoLink {
+  flex: 0 0 auto;
+
+  img {
+    display: block;
+    width: 8.6875rem;
+    height: auto;
+  }
+}
+
+.search {
+  display: flex;
+  width: min(tokens.$search-width, 100%);
+  height: tokens.$search-height;
+  margin-left: 11.625rem;
+  background: tokens.$color-background-soft;
+  border-radius: tokens.$radius-md;
+}
+
+.searchInput {
+  min-width: 0;
+  border-right: 0;
+  border-radius: tokens.$radius-md 0 0 tokens.$radius-md;
+}
+
+.searchButton {
+  min-width: 3.25rem;
+  height: tokens.$search-height;
+  padding: tokens.$space-3 tokens.$space-4;
+  border-radius: 0 tokens.$radius-md tokens.$radius-md 0;
+
+  img {
+    display: block;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+.actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: tokens.$space-2;
+  margin-left: auto;
+
+  img {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .backToStoreIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.navigation {
+  height: 2.5rem;
+  border-top: 1px solid tokens.$color-border-light;
+  box-shadow: 0 0.5rem 1rem rgba(57, 48, 19, 0.12);
+}
+
+.navigationList {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: tokens.$space-6;
+  max-width: 71.625rem;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+}
+
+.offers {
+  color: tokens.$color-accent-dark;
+}
+
+.subscription {
+  display: inline-flex;
+  align-items: center;
+  gap: tokens.$space-4;
+
+  img {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@media (max-width: 79.999rem) {
+  .mainBar {
+    padding-right: tokens.$space-6;
+    padding-left: tokens.$space-6;
+  }
+
+  .search {
+    margin-left: clamp(tokens.$space-6, 8vw, 11.625rem);
+  }
+
+  .navigationList {
+    padding-right: tokens.$space-6;
+    padding-left: tokens.$space-6;
+  }
+}
+
+@media (max-width: 64rem) {
+  .benefits {
+    gap: clamp(tokens.$space-6, 8vw, 7.4375rem);
+  }
+
+  .mainBar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: tokens.$space-3 tokens.$space-6;
+    padding-top: tokens.$space-3;
+    padding-bottom: tokens.$space-3;
+  }
+
+  .search {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .actions {
+    margin-left: 0;
+  }
+
+  .navigationList {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: tokens.$space-4 tokens.$space-8;
+    padding-top: tokens.$space-3;
+    padding-bottom: tokens.$space-3;
+  }
+
+  .navigation {
+    height: auto;
+  }
+}
+
+@media (max-width: 40rem) {
+  .benefitsBar {
+    height: auto;
+  }
+
+  .benefits {
+    height: auto;
+    flex-wrap: wrap;
+    gap: tokens.$space-2 tokens.$space-6;
+    padding: tokens.$space-2 tokens.$space-4;
+
+    li {
+      white-space: normal;
+    }
+  }
+}
+
+@media (max-width: 30rem) {
+  .mainBar {
+    justify-content: center;
+    padding-right: tokens.$space-4;
+    padding-left: tokens.$space-4;
+  }
+
+  .logoLink {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navigationList {
+    gap: tokens.$space-4 tokens.$space-6;
+    padding-right: tokens.$space-4;
+    padding-left: tokens.$space-4;
+  }
+}
