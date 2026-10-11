@@ -1,13 +1,14 @@
 @use '../../../styles/tokens' as tokens;
 
 .checkbox {
-  width: 1.125rem;
-  height: 1.125rem;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  flex-shrink: 0;
   margin: 0;
   accent-color: tokens.$color-accent;
   cursor: pointer;
 
-  &:hover {
+  &:hover:not(:disabled) {
     outline: 2px solid tokens.$color-accent;
     outline-offset: 2px;
   }

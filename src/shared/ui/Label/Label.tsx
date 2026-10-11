@@ -4,10 +4,11 @@ import styles from './Label.module.scss'
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   visuallyHidden?: boolean
+  surface?: 'light' | 'dark'
 }
 
-export function Label({ className, visuallyHidden = false, ...props }: LabelProps) {
-  const classNames = [styles.label, visuallyHidden && styles.visuallyHidden, className]
+export function Label({ className, surface = 'light', visuallyHidden = false, ...props }: LabelProps) {
+  const classNames = [styles.label, styles[surface], visuallyHidden && styles.visuallyHidden, className]
     .filter(Boolean)
     .join(' ')
 

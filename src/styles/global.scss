@@ -40,6 +40,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: Outfit;
+  src: url('../assets/fonts/outfit-600.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
 :root {
   font-family: Arial, Helvetica, sans-serif;
   color: tokens.$color-text;

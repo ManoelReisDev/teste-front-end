@@ -23,8 +23,10 @@
 }
 
 .navigation {
-  font-size: 0.875rem;
-  font-weight: 500;
+  color: tokens.$color-icon-muted;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .footer {

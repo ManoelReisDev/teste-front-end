@@ -1,4 +1,4 @@
-git import type { AnchorHTMLAttributes, ReactNode } from 'react'
+import type { AnchorHTMLAttributes, ReactNode } from 'react'
 
 import styles from './Link.module.scss'
 
@@ -34,11 +34,11 @@ export function Link(props: LinkProps) {
         className={classNames}
         onClick={(event) => {
           event.preventDefault()
-          onClick?.(event)
         }}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault()
+            return
           }
           onKeyDown?.(event)
         }}

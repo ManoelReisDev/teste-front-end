@@ -24,13 +24,15 @@
 }
 
 .accent {
-  padding: 0 tokens.$space-6;
+  min-height: 2.625rem;
+  padding: 0 2.5rem;
   background: tokens.$color-accent;
   border-radius: 0.5rem;
-  color: tokens.$color-text;
+  color: #161615;
   font-weight: 600;
+  line-height: 0.75rem;
 
-  &:hover:not(:disabled):not([aria-disabled='true']),
+  &:hover:not(:disabled),
   &:focus-visible {
     color: tokens.$color-accent-dark;
   }
@@ -42,7 +44,7 @@
   background: transparent;
   color: inherit;
 
-  &:hover:not(:disabled):not([aria-disabled='true']),
+  &:hover:not(:disabled),
   &:focus-visible {
     background: tokens.$color-background-soft;
   }
