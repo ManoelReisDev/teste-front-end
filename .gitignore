@@ -5,6 +5,7 @@ coverage/
 *.tsbuildinfo
 .vite/
 .playwright-cli/
+.skill-index/
 output/
 
 # Logs
