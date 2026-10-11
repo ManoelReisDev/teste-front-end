@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { parseProducts } from './types'
+import { fetchProducts } from './products'
 import type { Product } from './types'
 
 export type ProductsState =
@@ -14,12 +14,8 @@ export function useProducts() {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetch('/api/products', { signal: controller.signal, headers: { Accept: 'application/json' } })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Falha ao carregar produtos (HTTP ${response.status}).`)
-        return response.json() as Promise<unknown>
-      })
-      .then((data) => setState({ status: 'success', products: parseProducts(data) }))
+    fetchProducts(controller.signal)
+      .then((products) => setState({ status: 'success', products }))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return
         setState({
