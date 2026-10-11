@@ -55,17 +55,26 @@
 @media (max-width: 74rem) {
   .list {
     // Em telas menores, o carrossel horizontal preserva o tamanho clicável das marcas.
+    width: 100%;
+    box-sizing: border-box;
     justify-content: flex-start;
     gap: tokens.$space-6;
     padding-inline: tokens.$space-6;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
     scroll-padding-inline: tokens.$space-6;
+    touch-action: pan-x;
     transform: none;
     scrollbar-width: none;
   }
 
   .list::-webkit-scrollbar {
     display: none;
+  }
+
+  .item {
+    scroll-snap-align: start;
   }
 }
 
