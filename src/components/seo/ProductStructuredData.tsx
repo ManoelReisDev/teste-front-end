@@ -42,7 +42,9 @@ function createCatalogMarkup(products: Product[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    '@id': '/#product-list',
     name: 'Seleção de produtos Econverse',
+    url: '/',
     itemListOrder: 'https://schema.org/ItemListOrderAscending',
     numberOfItems: entries.length,
     itemListElement: entries,
