@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
 
 import type { Product } from '../../../features/products/types'
 import type { ProductsState } from '../../../features/products/useProducts'
@@ -25,29 +25,65 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (produ
   )
 }
 
+function useProductCarousel(itemCount: number) {
+  const viewportRef = useRef<HTMLUListElement>(null)
+  const [canPrevious, setCanPrevious] = useState(false)
+  const [canNext, setCanNext] = useState(false)
+
+  const updateControls = useCallback(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    const maxScroll = viewport.scrollWidth - viewport.clientWidth
+    setCanPrevious(viewport.scrollLeft > 2)
+    setCanNext(viewport.scrollLeft < maxScroll - 2)
+  }, [])
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    updateControls()
+    viewport.addEventListener('scroll', updateControls, { passive: true })
+    const observer = new ResizeObserver(updateControls)
+    observer.observe(viewport)
+    return () => {
+      viewport.removeEventListener('scroll', updateControls)
+      observer.disconnect()
+    }
+  }, [itemCount, updateControls])
+
+  const scrollByPage = useCallback((direction: 1 | -1) => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    const firstItem = viewport.firstElementChild
+    const gap = Number.parseFloat(getComputedStyle(viewport).columnGap) || 0
+    const itemWidth = firstItem instanceof HTMLElement ? firstItem.offsetWidth : viewport.clientWidth
+    const visibleItems = Math.max(1, Math.floor((viewport.clientWidth + gap) / (itemWidth + gap)))
+    viewport.scrollBy({
+      left: direction * visibleItems * (itemWidth + gap),
+      behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    })
+  }, [])
+
+  return {
+    viewportRef,
+    canPrevious,
+    canNext,
+    previous: () => scrollByPage(-1),
+    next: () => scrollByPage(1),
+  }
+}
+
 function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect: (product: Product) => void }) {
-  const visible = 4
-  const [page, setPage] = useState(0)
-  const pages = Array.from({ length: Math.ceil(products.length / visible) }, (_, index) =>
-    products.slice(index * visible, (index + 1) * visible),
-  )
-  const canPrevious = page > 0
-  const canNext = page < pages.length - 1
+  const { viewportRef, canPrevious, canNext, previous, next } = useProductCarousel(products.length)
   return (
     <div aria-label="Produtos relacionados" className={styles.carousel} role="region">
-      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={!canPrevious} onClick={() => setPage((current) => current - 1)} type="button">
+      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={!canPrevious} onClick={previous} type="button">
         <img alt="" src={chevron} />
       </button>
-      <div className={styles.productsViewport}>
-        <div className={styles.productsTrack} style={{ transform: `translateX(-${page * 100}%)` }}>
-          {pages.map((pageProducts, pageIndex) => (
-            <ul className={styles.products} key={pageIndex}>
-              {pageProducts.map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
-            </ul>
-          ))}
-        </div>
-      </div>
-      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => setPage((current) => current + 1)} type="button">
+      <ul aria-label="Produtos relacionados" className={styles.products} ref={viewportRef}>
+        {products.map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
+      </ul>
+      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={next} type="button">
         <img alt="" className={styles.flipped} src={chevron} />
       </button>
     </div>
