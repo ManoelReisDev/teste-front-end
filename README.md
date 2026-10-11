@@ -9,6 +9,8 @@
 
 Página de e-commerce desenvolvida para o teste técnico da Econverse, com foco na fidelidade ao layout, componentização, responsividade e acessibilidade. A vitrine consome o JSON fornecido pelo desafio e permite consultar os detalhes de cada produto em um modal.
 
+**Deploy:** [Acessar o projeto na Vercel](https://teste-front-end-peach.vercel.app/).
+
 **Referências:** [layout no Figma](https://www.figma.com/file/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr?node-id=0%3A1) · [vitrine de referência](https://app.econverse.com.br/teste-front-end/junior/tecnologia/layout/vitrine-produtos.png) · [JSON de produtos](https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json).
 
 ## Tecnologias
