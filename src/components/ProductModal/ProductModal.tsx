@@ -4,9 +4,11 @@ import type { Product } from '../../features/products/types'
 import { Modal } from '../ui/Modal/Modal'
 import styles from './ProductModal.module.scss'
 
+const currencyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
+
 function currency(value: number) {
   // Produtos usam centavos na API; a formatação centralizada evita exibir valores inconsistentes no modal.
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100)
+  return currencyFormatter.format(value / 100)
 }
 
 export function ProductModal({ product, onClose }: { product: Product | null; onClose: () => void }) {

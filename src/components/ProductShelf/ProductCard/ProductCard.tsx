@@ -1,8 +1,10 @@
 import type { Product } from '../../../features/products/types'
 import styles from './ProductCard.module.scss'
 
+const currencyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
+
 function currency(value: number) {
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100)
+  return currencyFormatter.format(value / 100)
 }
 
 export interface ProductCardProps {

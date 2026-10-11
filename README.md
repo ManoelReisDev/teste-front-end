@@ -18,6 +18,16 @@ npm run build
 npm run preview
 ```
 
+### Desempenho
+
+Meça o Lighthouse na URL exibida por `npm run preview`, após executar `npm run build`. Use o mesmo perfil (mobile ou desktop), cache e condições de rede nas comparações.
+
+As fontes locais usam WOFF2 com subconjuntos latinos, incluindo acentos, marcas combinantes, pontuação e moedas. Caracteres das outras faixas continuam disponíveis nos arquivos completos e são carregados sob demanda com `unicode-range`. A Work Sans latina contém apenas o peso 400 usado pela interface. Poppins 600, usada no título do banner, recebe preload. O carrossel atualiza seus controles apenas quando a disponibilidade das setas muda; cards e modal reutilizam o formatador de moeda.
+
+Na auditoria local mobile com Lighthouse 13.5.0, a nota passou de 57 para 76 após a conversão para WOFF2 e chegou a 93–94 com os subconjuntos latinos. Na verificação do build final, a primeira pintura passou de 3,6 s para 2,3 s, o LCP de 4,4 s para 2,8 s e as transferências de fontes de 410 KB para 123 KB (70% a menos). São resultados de laboratório na versão de produção local; hospedagem, rede e máquina podem alterar a nota.
+
+Os subconjuntos estão incluídos no repositório; o build normal não precisa de Python. Para regenerá-los a partir dos WOFF2 completos, execute `npm run fonts:build` em um ambiente Python com `fonttools[woff]` (gerados com FontTools 4.65.0). O script verifica cobertura, contornos dos caracteres e métricas tipográficas. As faixas Unicode do script devem permanecer alinhadas às declarações de `src/styles/global.scss`.
+
 A Home atual integra Header, conteúdo principal mínimo e Footer com newsletter. A vitrine de produtos, o consumo do JSON remoto e o modal serão implementados nas próximas especificações.
 
 ## Estilização

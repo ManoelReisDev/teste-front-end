@@ -1,60 +1,34 @@
 @use './tokens' as tokens;
 
-@font-face {
-  font-family: Poppins;
-  src: url('../assets/fonts/poppins-300.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
+// Carrega o subconjunto latino para português e preserva os outros caracteres
+// nos arquivos completos, baixados apenas quando o texto exigir essas faixas.
+@mixin font-face($family, $file, $weight) {
+  @font-face {
+    font-family: $family;
+    src: url('../assets/fonts/#{$file}-latin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    unicode-range: U+0000-024F, U+0300-036F, U+2000-206F, U+20A0-20CF, U+2212;
+  }
+
+  @font-face {
+    font-family: $family;
+    src: url('../assets/fonts/#{$file}.woff2') format('woff2');
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    unicode-range: U+0250-02FF, U+0370-1FFF, U+2070-209F, U+20D0-2211, U+2213-10FFFF;
+  }
 }
 
-@font-face {
-  font-family: Poppins;
-  src: url('../assets/fonts/poppins-400.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Poppins;
-  src: url('../assets/fonts/poppins-500.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Poppins;
-  src: url('../assets/fonts/poppins-600.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Poppins;
-  src: url('../assets/fonts/poppins-700.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Work Sans';
-  src: url('../assets/fonts/work-sans-400.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Outfit;
-  src: url('../assets/fonts/outfit-600.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-}
+@include font-face(Poppins, 'poppins-300', 300);
+@include font-face(Poppins, 'poppins-400', 400);
+@include font-face(Poppins, 'poppins-500', 500);
+@include font-face(Poppins, 'poppins-600', 600);
+@include font-face(Poppins, 'poppins-700', 700);
+@include font-face('Work Sans', 'work-sans-400', 400);
+@include font-face(Outfit, 'outfit-600', 600);
 
 :root {
   font-family: Poppins, Arial, Helvetica, sans-serif;

@@ -25,8 +25,13 @@ export function Carousel<T>({ label, items, getKey, renderItem, busy = false }: 
       previous: viewport.scrollLeft > 2,
       next: viewport.scrollLeft < maxScroll - 2,
     }
-    canScroll.current = nextControls
-    setControls(nextControls)
+    if (
+      canScroll.current.previous !== nextControls.previous ||
+      canScroll.current.next !== nextControls.next
+    ) {
+      canScroll.current = nextControls
+      setControls(nextControls)
+    }
   }, [])
 
   useEffect(() => {
