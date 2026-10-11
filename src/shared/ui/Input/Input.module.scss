@@ -1,0 +1,57 @@
+@use '../../../styles/tokens' as tokens;
+
+.input {
+  width: 100%;
+  border: 1px solid transparent;
+  color: tokens.$color-text;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+
+  &::placeholder {
+    color: tokens.$color-placeholder;
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled):not([readonly]) {
+    border-color: tokens.$color-accent-dark;
+  }
+
+  &:focus-visible {
+    border-color: tokens.$color-accent-dark;
+    box-shadow: 0 0 0 2px tokens.$color-accent;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: #b42318;
+  }
+}
+
+.search {
+  height: 3rem;
+  padding: 0 tokens.$space-4;
+  background: tokens.$color-background-soft;
+  border-radius: tokens.$radius-md;
+  font-weight: 500;
+}
+
+.default {
+  height: 2.625rem;
+  padding: 0 tokens.$space-4;
+  background: tokens.$color-white;
+  border-color: #e7e7e7;
+  border-radius: 0.5rem;
+  font-weight: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input {
+    transition: none;
+  }
+}

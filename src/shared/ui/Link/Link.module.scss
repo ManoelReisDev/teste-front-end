@@ -1,0 +1,54 @@
+@use '../../../styles/tokens' as tokens;
+
+.link {
+  color: inherit;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  transition: color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: tokens.$color-accent-dark;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid tokens.$color-accent;
+    outline-offset: 3px;
+  }
+
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+}
+
+.navigation {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.footer {
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: tokens.$button-height;
+  min-height: tokens.$button-height;
+
+  &:hover,
+  &:focus-visible {
+    background: tokens.$color-background-soft;
+    text-decoration: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}
