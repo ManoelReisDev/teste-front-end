@@ -1,7 +1,7 @@
 @use '../../../styles/tokens' as tokens;
 
 .link {
-  // A decoração aparece apenas em interação para não competir com a hierarquia visual.
+  // A cor sinaliza a interação sem adicionar sublinhado aos links da interface.
   color: inherit;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   text-decoration: none;
@@ -10,7 +10,7 @@
   &:hover,
   &:focus-visible {
     color: tokens.$color-accent-dark;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   &:focus-visible {
