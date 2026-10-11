@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 
 import beverages from '../../../assets/images/categories/bebidas.webp'
 import fitness from '../../../assets/images/categories/esportes.webp'
@@ -41,7 +41,11 @@ export function CategoryList() {
               type="button"
             >
               <span className={styles.box}>
-                <img alt="" className={styles.icon} src={icon} />
+                <span
+                  aria-hidden="true"
+                  className={styles.icon}
+                  style={{ '--category-icon': `url(${icon})` } as CSSProperties}
+                />
               </span>
               <span className={styles.label}>{label}</span>
             </button>

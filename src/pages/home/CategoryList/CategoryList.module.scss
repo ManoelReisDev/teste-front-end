@@ -40,7 +40,7 @@
   }
 
   &:hover:not(.active) .box {
-    background: #ededed;
+    background-color: #ededed;
   }
 }
 
@@ -59,8 +59,10 @@
 .icon {
   width: 3.8125rem;
   height: 3.8125rem;
-  object-fit: contain;
-  filter: grayscale(1) brightness(0);
+  background-color: tokens.$color-text;
+  mask: var(--category-icon) center / contain no-repeat;
+  -webkit-mask: var(--category-icon) center / contain no-repeat;
+  transition: background-color 120ms ease;
 }
 
 .label {
@@ -78,7 +80,7 @@
   }
 
   .icon {
-    filter: none;
+    background-color: tokens.$color-accent-dark;
   }
 
   .label {
@@ -116,7 +118,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .box {
+  .box,
+  .icon {
     transition: none;
   }
 }
