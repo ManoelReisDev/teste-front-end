@@ -56,7 +56,7 @@ function safelySerialize(value: unknown) {
     .replace(/&/g, '\\u0026')
 }
 
-export function ProductsJsonLd({ products }: ProductsJsonLdProps) {
+export function ProductStructuredData({ products }: ProductsJsonLdProps) {
   return (
     <script
       type="application/ld+json"

@@ -7,6 +7,7 @@ import { HeroBanner } from './HeroBanner/HeroBanner'
 import { PartnerBanners } from './PartnerBanners/PartnerBanners'
 import { ProductShelf } from './ProductShelf/ProductShelf'
 import { ProductModal } from './ProductModal/ProductModal'
+import { ProductStructuredData } from './ProductStructuredData'
 import type { Product } from '../../features/products/types'
 import { useProducts } from '../../features/products/useProducts'
 import styles from './Home.module.scss'
@@ -28,6 +29,7 @@ export function Home() {
         <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} />
         <ProductModal onClose={() => setSelectedProduct(null)} product={selectedProduct} />
       </main>
+      {state.status === 'success' && <ProductStructuredData products={state.products} />}
       <Footer />
     </div>
   )
