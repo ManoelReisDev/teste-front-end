@@ -34,7 +34,7 @@
 }
 
 .search {
-  height: 3rem;
+  height: tokens.$search-height;
   padding: 0 1rem;
   background: tokens.$color-background-soft;
   border-radius: tokens.$radius-md;

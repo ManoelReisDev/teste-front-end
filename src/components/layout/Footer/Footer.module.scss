@@ -33,7 +33,7 @@
 
   > a {
     width: 10.25rem;
-    min-height: 3rem;
+    min-height: tokens.$search-height;
     padding: 0;
   }
 

@@ -14,8 +14,8 @@
 
 .close {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: tokens.$space-4;
+  right: tokens.$space-4;
   z-index: 1;
   width: 2rem;
   height: 2rem;

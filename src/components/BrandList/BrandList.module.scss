@@ -19,7 +19,7 @@
 .list {
   display: flex;
   justify-content: center;
-  gap: 2.625rem;
+  gap: tokens.$space-8;
   padding: 0.25rem 0 1.25rem;
   margin: 1.75rem 0 -1.25rem;
   list-style: none;
