@@ -11,21 +11,21 @@ function currency(value: number) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100)
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, onSelect }: { product: Product; onSelect: (product: Product) => void }) {
   return (
     <article className={styles.card}>
       <img alt={product.name} className={styles.productImage} height={228} loading="lazy" src={product.photo} width={247} />
-      <button className={styles.name} type="button">{product.name}</button>
+      <button className={styles.name} onClick={() => onSelect(product)} type="button">{product.name}</button>
       <s className={styles.listPrice}>{currency(product.listPrice)}</s>
       <strong className={styles.price}>{currency(product.price)}</strong>
       <span className={styles.installment}>ou {product.installment.count}x de {currency(product.installment.value)} sem juros</span>
       {product.freeShipping && <span className={styles.shipping}>Frete grátis</span>}
-      <button aria-label={`Comprar ${product.name}`} className={styles.buy} type="button">Comprar</button>
+      <button aria-label={`Comprar ${product.name}`} className={styles.buy} onClick={() => onSelect(product)} type="button">Comprar</button>
     </article>
   )
 }
 
-function ProductCarousel({ products }: { products: Product[] }) {
+function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect: (product: Product) => void }) {
   const [start, setStart] = useState(0)
   const visible = 4
   const canNext = start + visible < products.length
@@ -35,7 +35,7 @@ function ProductCarousel({ products }: { products: Product[] }) {
         <img alt="" src={chevron} />
       </button>
       <ul className={styles.products}>
-        {products.slice(start, start + visible).map((product) => <li key={product.id}><ProductCard product={product} /></li>)}
+        {products.slice(start, start + visible).map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
       </ul>
       <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => setStart(start + 1)} type="button">
         <img alt="" className={styles.flipped} src={chevron} />
@@ -44,7 +44,7 @@ function ProductCarousel({ products }: { products: Product[] }) {
   )
 }
 
-export function ProductShelf({ withTabs = false }: { withTabs?: boolean }) {
+export function ProductShelf({ withTabs = false, onSelect }: { withTabs?: boolean; onSelect: (product: Product) => void }) {
   const titleId = useId()
   const [activeTab, setActiveTab] = useState(tabs[0])
   const { state, retry } = useProducts()
@@ -58,7 +58,7 @@ export function ProductShelf({ withTabs = false }: { withTabs?: boolean }) {
       ) : <a className={styles.viewAll} href="#produtos">Ver todos</a>}
       {state.status === 'loading' && <p className={styles.feedback}>Carregando produtos...</p>}
       {state.status === 'error' && <div className={styles.feedback} role="alert"><p>{state.message}</p><button onClick={retry} type="button">Tentar novamente</button></div>}
-      {state.status === 'success' && (state.products.length ? <ProductCarousel products={state.products} /> : <p className={styles.feedback}>Nenhum produto encontrado no momento.</p>)}
+      {state.status === 'success' && (state.products.length ? <ProductCarousel onSelect={onSelect} products={state.products} /> : <p className={styles.feedback}>Nenhum produto encontrado no momento.</p>)}
     </section>
   )
 }
