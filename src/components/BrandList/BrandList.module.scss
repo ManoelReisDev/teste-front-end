@@ -2,8 +2,6 @@
 
 .section {
   width: 100%;
-  padding-top: tokens.$space-10;
-  padding-bottom: tokens.$space-8;
 }
 
 .title {
@@ -38,13 +36,13 @@
   justify-content: center;
   background: tokens.$color-white;
   border-radius: 50%;
-  box-shadow: 0 0.4375rem 0.625rem rgb(0 0 0 / 0.13);
+  box-shadow: 0 0.4375rem 0.625rem rgba(tokens.$color-text, 0.13);
   transition: box-shadow 250ms ease, transform 250ms ease;
 
   &:hover,
   &:focus-visible {
     transform: translateY(-0.125rem);
-    box-shadow: 0 0.625rem 1rem rgb(0 0 0 / 0.16);
+    box-shadow: 0 0.625rem 1rem rgba(tokens.$color-text, 0.16);
   }
 
   &:focus-visible {
@@ -70,11 +68,6 @@
 }
 
 @media (max-width: 37.5rem) {
-  .section {
-    padding-top: tokens.$space-8;
-    padding-bottom: tokens.$space-7;
-  }
-
   .title {
     font-size: 1.5rem;
   }
