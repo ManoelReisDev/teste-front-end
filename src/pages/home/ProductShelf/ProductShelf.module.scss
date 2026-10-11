@@ -94,6 +94,38 @@
   list-style: none;
 }
 
+.slideNext {
+  animation: slide-in-from-right 280ms ease both;
+}
+
+.slidePrevious {
+  animation: slide-in-from-left 280ms ease both;
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0.4;
+    transform: translateX(1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0.4;
+    transform: translateX(-1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .card {
   display: flex;
   min-width: 0;
@@ -160,4 +192,11 @@
 @media (max-width: 30rem) {
   .products { grid-template-columns: 1fr; }
   .carousel { padding-inline: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slideNext,
+  .slidePrevious {
+    animation: none;
+  }
 }
