@@ -4,6 +4,9 @@ dist/
 coverage/
 *.tsbuildinfo
 .vite/
+.agents/
+.aws/
+.codex/
 .playwright-cli/
 .skill-index/
 output/
