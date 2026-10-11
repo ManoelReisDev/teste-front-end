@@ -20,6 +20,14 @@ npm run preview
 
 A Home atual integra Header, conteúdo principal mínimo e Footer com newsletter. A vitrine de produtos, o consumo do JSON remoto e o modal serão implementados nas próximas especificações.
 
+## Estilização
+
+Os componentes usam SCSS Modules e consomem os tokens aprovados de `src/styles/_tokens.scss` com namespace explícito. O mixin `container` em `src/styles/_mixins.scss` centraliza a largura máxima de 1280px e as margens laterais fluidas com `clamp()`, preservando 80px de margem no desktop de referência.
+
+Header, Footer e Newsletter compartilham esse alinhamento. O Header distribui logo, busca e ações por Grid; campos e colunas usam `minmax(0, 1fr)` para adaptar a largura disponível. Os breakpoints reorganizam o conteúdo sem ocultá-lo. As faixas do Footer mantêm os fundos na largura da página.
+
+Estilos do conteúdo principal ficam no módulo da Home. Aparência e estados dos controles permanecem em `src/shared/ui/`; os módulos de layout cuidam da composição. Valores específicos do design permanecem locais quando não correspondem aos tokens existentes. Novos tokens exigem aprovação explícita.
+
 ### Vem ser #Econverse!
 
 Segue abaixo as instruções para a execução do teste.

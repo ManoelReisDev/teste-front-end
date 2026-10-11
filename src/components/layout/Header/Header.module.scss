@@ -1,4 +1,5 @@
 @use '../../../styles/tokens' as tokens;
+@use '../../../styles/mixins' as mixins;
 
 .header {
   width: 100%;
@@ -17,7 +18,7 @@
   height: 100%;
   align-items: center;
   justify-content: center;
-  gap: 7.4375rem;
+  gap: clamp(tokens.$space-6, 8vw, 7.4375rem);
   max-width: tokens.$layout-container;
   padding: 0;
   margin: 0 auto;
@@ -47,15 +48,18 @@
 }
 
 .mainBar {
-  display: flex;
-  width: min(100%, tokens.$layout-container);
+  @include mixins.container;
+  display: grid;
+  grid-template-columns: 1fr tokens.$search-width 1fr;
+  grid-template-areas: 'logo search actions';
   min-height: 4.5rem;
   align-items: center;
   margin: 0 auto;
 }
 
 .logoLink {
-  flex: 0 0 auto;
+  grid-area: logo;
+  justify-self: start;
 
   img {
     display: block;
@@ -65,10 +69,11 @@
 }
 
 .search {
+  grid-area: search;
   display: flex;
-  width: min(tokens.$search-width, 100%);
+  min-width: 0;
+  width: 100%;
   height: tokens.$search-height;
-  margin-left: 11.625rem;
   background: tokens.$color-background-soft;
   border-radius: tokens.$radius-md;
 }
@@ -93,11 +98,11 @@
 }
 
 .actions {
+  grid-area: actions;
   display: flex;
-  flex: 0 0 auto;
   align-items: center;
   gap: tokens.$space-2;
-  margin-left: auto;
+  justify-self: end;
 
   img {
     display: block;
@@ -151,43 +156,22 @@
   }
 }
 
-@media (max-width: 79.999rem) {
+@media (max-width: 80rem) {
   .mainBar {
-    padding-right: tokens.$space-6;
-    padding-left: tokens.$space-6;
-  }
-
-  .search {
-    margin-left: clamp(tokens.$space-6, 8vw, 11.625rem);
-  }
-
-  .navigationList {
-    padding-right: tokens.$space-6;
-    padding-left: tokens.$space-6;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: tokens.$space-7;
   }
 }
 
 @media (max-width: 64rem) {
-  .benefits {
-    gap: clamp(tokens.$space-6, 8vw, 7.4375rem);
-  }
-
   .mainBar {
-    flex-wrap: wrap;
-    justify-content: space-between;
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      'logo actions'
+      'search search';
     gap: tokens.$space-3 tokens.$space-6;
     padding-top: tokens.$space-3;
     padding-bottom: tokens.$space-3;
-  }
-
-  .search {
-    order: 3;
-    width: 100%;
-    margin-left: 0;
-  }
-
-  .actions {
-    margin-left: 0;
   }
 
   .navigationList {
@@ -223,18 +207,16 @@
 
 @media (max-width: 30rem) {
   .mainBar {
-    justify-content: center;
-    padding-right: tokens.$space-4;
-    padding-left: tokens.$space-4;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'logo' 'actions' 'search';
   }
 
   .logoLink {
-    margin-right: auto;
-    margin-left: auto;
+    justify-self: center;
   }
 
   .actions {
-    width: 100%;
+    justify-self: center;
     justify-content: center;
   }
 

@@ -1,0 +1,10 @@
+@use './tokens' as tokens;
+
+// Mesma largura de referência, com margens que acompanham a viewport.
+@mixin container {
+  width: min(
+    tokens.$layout-container,
+    calc(100% - 2 * clamp(tokens.$space-2 * 2, 6vw, tokens.$layout-margin))
+  );
+  margin-inline: auto;
+}

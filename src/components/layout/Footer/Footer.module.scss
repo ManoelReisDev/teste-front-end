@@ -1,4 +1,5 @@
 @use '../../../styles/tokens' as tokens;
+@use '../../../styles/mixins' as mixins;
 
 .footer {
   width: 100%;
@@ -10,17 +11,17 @@
 }
 
 .institutionalInner {
+  @include mixins.container;
   display: grid;
-  grid-template-columns: 22.125rem 1px minmax(0, 1fr);
-  gap: 5.625rem;
+  grid-template-columns: minmax(0, 22.125rem) 1px minmax(0, 1fr);
+  gap: clamp(tokens.$space-7, 6.25vw, 5.625rem);
   align-items: center;
-  width: min(calc(100% - 10rem), tokens.$layout-container);
   min-height: 17.625rem;
-  padding: 2.625rem 0;
-  margin: 0 auto;
+  padding-block: tokens.$space-8;
 }
 
 .brand {
+  min-width: 0;
   display: grid;
   gap: 1.6875rem;
   align-content: center;
@@ -60,33 +61,77 @@
     padding: tokens.$space-3;
   }
 
-  img {
-    display: block;
+  .socialLink {
+    transition: color 120ms ease, background-color 120ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background: tokens.$color-background-soft;
+      color: tokens.$color-accent-dark;
+    }
   }
+
+  .socialIcon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #4a4a4a;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    transition: background-color 120ms ease;
+  }
+
+  .socialLink:hover .socialIcon,
+  .socialLink:focus-visible .socialIcon {
+    background-color: tokens.$color-accent-dark;
+  }
+
+  .instagramIcon {
+    mask-image: url('../../../assets/icons/footer-instagram.svg');
+    -webkit-mask-image: url('../../../assets/icons/footer-instagram.svg');
+  }
+
+  .facebookIcon {
+    mask-image: url('../../../assets/icons/footer-facebook.svg');
+    -webkit-mask-image: url('../../../assets/icons/footer-facebook.svg');
+  }
+
+  .linkedinIcon {
+    mask-image: url('../../../assets/icons/footer-linkedin.svg');
+    -webkit-mask-image: url('../../../assets/icons/footer-linkedin.svg');
+  }
+
 }
 
 .divider {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 1px;
   height: 12.375rem;
 }
 
 .dividerImage {
   flex: 0 0 auto;
+  max-width: none;
   transform: rotate(90deg);
 }
 
 .columns {
   display: grid;
-  grid-template-columns: repeat(3, max-content);
-  gap: 6.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(tokens.$space-6, 6.94vw, 6.25rem);
+  align-items: start;
   color: rgba(34, 34, 34, 0.71);
-  white-space: nowrap;
 }
 
 .column {
+  min-width: 0;
   display: grid;
   gap: 1.25rem;
   align-content: start;
@@ -109,6 +154,7 @@
 
   a {
     line-height: 1rem;
+    white-space: nowrap;
   }
 }
 
@@ -139,7 +185,6 @@
   .institutionalInner {
     grid-template-columns: minmax(15rem, 1fr) 1px minmax(0, 2fr);
     gap: tokens.$space-8;
-    width: min(calc(100% - 4rem), tokens.$layout-container);
   }
 
   .columns {
@@ -148,7 +193,7 @@
   }
 }
 
-@media (max-width: 56rem) {
+@media (max-width: 64rem) {
   .institutionalInner {
     grid-template-columns: minmax(0, 1fr);
     gap: tokens.$space-7;
@@ -172,22 +217,21 @@
   }
 }
 
-@media (max-width: 43.75rem) {
-  .institutionalInner {
-    width: calc(100% - 3rem);
-  }
-}
-
 @media (max-width: 37.5rem) {
   .columns {
     grid-template-columns: minmax(0, 1fr);
     gap: tokens.$space-7;
     white-space: normal;
   }
+
+  .column a {
+    white-space: normal;
+  }
 }
 
-@media (max-width: 23.4375rem) {
-  .institutionalInner {
-    width: calc(100% - 2rem);
+@media (prefers-reduced-motion: reduce) {
+  .socials .socialLink,
+  .socials .socialIcon {
+    transition: none;
   }
 }

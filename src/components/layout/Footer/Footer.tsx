@@ -1,10 +1,7 @@
 import { useId } from 'react'
 import type { ReactNode } from 'react'
 
-import facebookIcon from '../../../assets/icons/footer-facebook.svg'
 import dividerIcon from '../../../assets/icons/footer-divider.svg'
-import instagramIcon from '../../../assets/icons/footer-instagram.svg'
-import linkedinIcon from '../../../assets/icons/footer-linkedin.svg'
 import footerLogo from '../../../assets/logo/footer-logo.svg'
 import { Link } from '../../../shared/ui/Link/Link'
 import { Newsletter } from './Newsletter'
@@ -108,12 +105,12 @@ const footerColumns: Array<{
 
 const socialLinks: Array<{
   destination: FooterDestination
-  icon: string
+  iconClassName: string
   label: string
 }> = [
-  { destination: 'instagram', icon: instagramIcon, label: 'Instagram' },
-  { destination: 'facebook', icon: facebookIcon, label: 'Facebook' },
-  { destination: 'linkedin', icon: linkedinIcon, label: 'LinkedIn' },
+  { destination: 'instagram', iconClassName: styles.instagramIcon, label: 'Instagram' },
+  { destination: 'facebook', iconClassName: styles.facebookIcon, label: 'Facebook' },
+  { destination: 'linkedin', iconClassName: styles.linkedinIcon, label: 'LinkedIn' },
 ]
 
 export function Footer({ destinations, onNewsletterSubmit }: FooterProps) {
@@ -134,14 +131,15 @@ export function Footer({ destinations, onNewsletterSubmit }: FooterProps) {
             </div>
 
             <div aria-label="Redes sociais" className={styles.socials} role="group">
-              {socialLinks.map(({ destination, icon, label }) => (
+              {socialLinks.map(({ destination, iconClassName, label }) => (
                 <OptionalLink
                   accessibleName={label}
+                  className={styles.socialLink}
                   href={destinations?.[destination]}
                   key={destination}
                   variant="icon"
                 >
-                  <img alt="" src={icon} />
+                  <span aria-hidden="true" className={`${styles.socialIcon} ${iconClassName}`} />
                 </OptionalLink>
               ))}
             </div>

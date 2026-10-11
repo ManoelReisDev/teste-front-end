@@ -1,4 +1,5 @@
 @use '../../../styles/tokens' as tokens;
+@use '../../../styles/mixins' as mixins;
 
 .newsletter {
   min-height: 10.125rem;
@@ -7,17 +8,17 @@
 }
 
 .inner {
+  @include mixins.container;
   display: grid;
-  grid-template-columns: 32.1875rem minmax(0, 1fr);
-  gap: 7.75rem;
+  grid-template-columns: minmax(0, 32.1875rem) minmax(0, 1fr);
+  gap: clamp(tokens.$space-7, 8.61vw, 7.75rem);
   align-items: start;
-  width: min(calc(100% - 10rem), tokens.$layout-container);
   min-height: 10.125rem;
   padding: 2.5rem 0;
-  margin: 0 auto;
 }
 
 .copy {
+  min-width: 0;
   display: grid;
   gap: tokens.$space-2;
 
@@ -28,7 +29,7 @@
 
   h2 {
     font-family: Outfit, Poppins, Arial, Helvetica, sans-serif;
-    font-size: 2rem;
+    font-size: clamp(1.625rem, 2.23vw, 2rem);
     font-weight: 600;
     line-height: 1.2;
   }
@@ -48,7 +49,7 @@
 
 .fields {
   display: grid;
-  grid-template-columns: 14.5625rem 14.5625rem 9.8125rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) 9.8125rem;
   gap: tokens.$space-2;
 }
 
@@ -82,11 +83,17 @@
   }
 }
 
-@media (max-width: 79.999rem) {
+@media (max-width: 80rem) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: tokens.$space-7;
+  }
+}
+
+@media (max-width: 74rem) {
   .inner {
     grid-template-columns: minmax(0, 1fr);
     gap: tokens.$space-6;
-    width: min(calc(100% - 4rem), tokens.$layout-container);
   }
 
   .copy p {
@@ -100,21 +107,10 @@
 
 @media (max-width: 43.75rem) {
   .inner {
-    width: calc(100% - 3rem);
     padding: tokens.$space-7 0;
-  }
-
-  .copy h2 {
-    font-size: 1.75rem;
   }
 
   .fields {
     grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 23.4375rem) {
-  .inner {
-    width: calc(100% - 2rem);
   }
 }
