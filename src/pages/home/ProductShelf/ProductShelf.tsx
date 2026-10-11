@@ -26,29 +26,28 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (produ
 }
 
 function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect: (product: Product) => void }) {
-  const [start, setStart] = useState(0)
-  const [direction, setDirection] = useState<'next' | 'previous' | null>(null)
   const visible = 4
-  const maxStart = Math.max(0, products.length - visible)
-  const canNext = start < maxStart
-  const move = (nextStart: number, nextDirection: 'next' | 'previous') => {
-    setDirection(nextDirection)
-    setStart(nextStart)
-  }
+  const [page, setPage] = useState(0)
+  const pages = Array.from({ length: Math.ceil(products.length / visible) }, (_, index) =>
+    products.slice(index * visible, (index + 1) * visible),
+  )
+  const canPrevious = page > 0
+  const canNext = page < pages.length - 1
   return (
     <div aria-label="Produtos relacionados" className={styles.carousel} role="region">
-      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={start === 0} onClick={() => move(Math.max(0, start - visible), 'previous')} type="button">
+      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={!canPrevious} onClick={() => setPage((current) => current - 1)} type="button">
         <img alt="" src={chevron} />
       </button>
       <div className={styles.productsViewport}>
-        <ul
-          className={`${styles.products} ${direction ? styles[`slide${direction}`] : ''}`}
-          key={`${start}-${direction ?? 'initial'}`}
-        >
-          {products.slice(start, start + visible).map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
-        </ul>
+        <div className={styles.productsTrack} style={{ transform: `translateX(-${page * 100}%)` }}>
+          {pages.map((pageProducts, pageIndex) => (
+            <ul className={styles.products} key={pageIndex}>
+              {pageProducts.map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
+            </ul>
+          ))}
+        </div>
       </div>
-      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => move(Math.min(maxStart, start + visible), 'next')} type="button">
+      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => setPage((current) => current + 1)} type="button">
         <img alt="" className={styles.flipped} src={chevron} />
       </button>
     </div>
