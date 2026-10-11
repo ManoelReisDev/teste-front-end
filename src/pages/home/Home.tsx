@@ -3,6 +3,7 @@ import { Header } from '../../components/layout/Header/Header'
 import { BrandList } from './BrandList/BrandList'
 import { CategoryList } from './CategoryList/CategoryList'
 import { HeroBanner } from './HeroBanner/HeroBanner'
+import { PartnerBanners } from './PartnerBanners/PartnerBanners'
 import styles from './Home.module.scss'
 
 export function Home() {
@@ -12,6 +13,7 @@ export function Home() {
       <main className={styles.main}>
         <HeroBanner />
         <CategoryList />
+        <PartnerBanners />
         <BrandList />
       </main>
       <Footer />
