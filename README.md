@@ -1,5 +1,25 @@
 # Teste Econverse: Vaga Desenvolvedor Front-End
 
+## Desenvolvimento local
+
+Pré-requisito: Node.js `>=20.19.0` e npm.
+
+```bash
+npm ci
+npm run dev
+```
+
+Para validar o projeto e gerar a versão de produção:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+npm run preview
+```
+
+O bootstrap atual renderiza a Home mínima. A vitrine de produtos, o consumo do JSON remoto e o modal serão implementados nas próximas especificações.
+
 ### Vem ser #Econverse!
 
 Segue abaixo as instruções para a execução do teste.

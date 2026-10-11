@@ -1,0 +1,21 @@
+# Dependências e arquivos gerados
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.vite/
+
+# Logs
+*.log
+
+# Configuração local
+.env
+.env.*
+!.env.example
+*.local
+.DS_Store
+Thumbs.db
+
+# Instruções e especificações locais
+AGENTS.md
+/specs/
