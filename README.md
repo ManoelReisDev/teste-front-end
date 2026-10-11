@@ -33,7 +33,7 @@ src/
   components/         # Seções, vitrine, carrossel e modal de produto
     layout/           # Header, Footer e newsletter
     ui/               # Controles reutilizáveis e diálogo nativo
-    seo/              # Dados estruturados do catálogo
+    structured-data/  # Dados estruturados do catálogo
   features/products/  # Requisição, validação, modelo e hook de produtos
   styles/             # Tokens, mixins e estilos globais
   assets/             # Fontes, imagens e ícones importados
