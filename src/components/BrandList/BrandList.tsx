@@ -1,4 +1,4 @@
-import brandLogo from '../../../assets/icons/brand-logo.svg'
+import brandLogo from '../../assets/icons/brand-logo.svg'
 import styles from './BrandList.module.scss'
 
 const brands = Array.from({ length: 5 }, (_, index) => ({

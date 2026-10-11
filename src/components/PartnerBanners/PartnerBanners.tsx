@@ -1,4 +1,4 @@
-import { Link } from '../../../shared/ui/Link/Link'
+import { Link } from '../../shared/ui/Link/Link'
 import styles from './PartnerBanners.module.scss'
 
 const partners = ['partner-one', 'partner-two']

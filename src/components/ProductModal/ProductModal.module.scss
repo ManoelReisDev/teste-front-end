@@ -1,4 +1,4 @@
-@use '../../../styles/tokens' as tokens;
+@use '../../styles/tokens' as tokens;
 
 .content { display: grid; grid-template-columns: 15.4375rem minmax(0, 1fr); gap: 3rem; padding: 3.5rem; }
 .image { width: 15.4375rem; height: 12rem; object-fit: cover; }

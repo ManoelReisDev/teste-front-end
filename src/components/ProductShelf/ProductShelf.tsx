@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
 
-import type { Product } from '../../../features/products/types'
-import type { ProductsState } from '../../../features/products/useProducts'
-import chevron from '../../../assets/icons/chevron-left.svg'
+import type { Product } from '../../features/products/types'
+import type { ProductsState } from '../../features/products/useProducts'
+import chevron from '../../assets/icons/chevron-left.svg'
 import styles from './ProductShelf.module.scss'
 
 const tabs = ['Celular', 'Acessórios', 'Tablets', 'Notebooks', 'TVs', 'Ver todos']
