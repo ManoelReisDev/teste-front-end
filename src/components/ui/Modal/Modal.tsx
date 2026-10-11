@@ -19,7 +19,15 @@ export function Modal({ open, titleId, describedBy, closeLabel, onClose, childre
     if (!dialog) return
     // O estado React é a fonte de verdade, mas a abertura precisa usar showModal para ativar
     // o foco, o backdrop e o fechamento por Escape fornecidos pelo elemento nativo.
-    if (open && !dialog.open) dialog.showModal()
+    if (open && !dialog.open) {
+      const trigger = document.activeElement
+      dialog.showModal()
+
+      return () => {
+        dialog.close()
+        if (trigger instanceof HTMLElement && trigger.isConnected) trigger.focus()
+      }
+    }
     if (!open && dialog.open) dialog.close()
   }, [open])
 

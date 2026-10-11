@@ -18,15 +18,22 @@ export function ProductCard({ product, onSelect }: ProductCardProps) {
   return (
     <article className={styles.card}>
       <div className={styles.media}>
-        <img
-          alt={product.name}
-          className={styles.productImage}
-          decoding="async"
-          height={228}
-          loading="lazy"
-          src={product.photo}
-          width={247}
-        />
+        <button
+          aria-label={`Ver detalhes de ${product.name}`}
+          className={styles.imageButton}
+          onClick={selectProduct}
+          type="button"
+        >
+          <img
+            alt=""
+            className={styles.productImage}
+            decoding="async"
+            height={228}
+            loading="lazy"
+            src={product.photo}
+            width={247}
+          />
+        </button>
         <h3 className={styles.name}>
           <button className={styles.nameButton} onClick={selectProduct} type="button">
             {product.name}
