@@ -1,12 +1,12 @@
 import { useState, type CSSProperties } from 'react'
 
-import beverages from '../../../assets/images/categories/bebidas.webp'
-import fitness from '../../../assets/images/categories/esportes.webp'
-import fashion from '../../../assets/images/categories/moda.webp'
-import health from '../../../assets/images/categories/saude.webp'
-import supermarket from '../../../assets/images/categories/supermercado.webp'
-import technology from '../../../assets/images/categories/tecnologia.webp'
-import tools from '../../../assets/images/categories/ferramentas.webp'
+import beverages from '../../../assets/images/categories/beverages.webp'
+import fitness from '../../../assets/images/categories/sports.webp'
+import fashion from '../../../assets/images/categories/fashion.webp'
+import health from '../../../assets/images/categories/health.webp'
+import supermarket from '../../../assets/images/categories/supermarket.webp'
+import technology from '../../../assets/images/categories/technology.webp'
+import tools from '../../../assets/images/categories/tools.webp'
 import styles from './CategoryList.module.scss'
 
 const categories = [
