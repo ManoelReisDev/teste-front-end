@@ -24,6 +24,103 @@ Página de e-commerce desenvolvida para o teste técnico da Econverse, com foco 
 
 Os componentes visuais foram implementados sem bibliotecas de UI. O carrossel utiliza rolagem nativa e o modal utiliza o elemento HTML `<dialog>`.
 
+## Estrutura
+
+```text
+src/
+  app/                # Composição da aplicação
+  pages/home/         # Composição e estilos da Home
+  components/         # Seções, vitrine, carrossel e modal de produto
+    layout/           # Header, Footer e newsletter
+    ui/               # Controles reutilizáveis e diálogo nativo
+    seo/              # Dados estruturados do catálogo
+  features/products/  # Requisição, validação, modelo e hook de produtos
+  styles/             # Tokens, mixins e estilos globais
+  assets/             # Fontes, imagens e ícones importados
+public/               # Banners, favicon e arquivos estáticos
+```
+
+## Desempenho e SEO
+
+As fontes são servidas localmente em WOFF2, com subconjuntos latinos e `unicode-range` para carregar outras faixas apenas quando necessário. `font-display: swap` permite exibir o texto durante o carregamento. A fonte Poppins 600 e a imagem principal recebem preload; imagens secundárias utilizam carregamento adiado, e os banners possuem versões WebP para diferentes resoluções.
+
+O documento inclui idioma `pt-BR`, título, descrição, metadados sociais e dados estruturados de organização e site. Após carregar os produtos, a página adiciona um `ItemList` em JSON-LD com os itens e seus preços.
+
+### Como medir SEO e desempenho
+
+Gere o build e sirva a versão de produção localmente:
+
+```bash
+npm run build
+npm run preview
+```
+
+Abra o endereço informado no terminal, normalmente `http://localhost:4173`, no Chrome. Nas ferramentas de desenvolvedor (`F12`), acesse **Lighthouse**, selecione o modo **Navigation** e as categorias **Performance**, **Accessibility**, **Best Practices** e **SEO**. Execute uma auditoria com o perfil **Desktop** e outra com **Mobile**, conforme a [documentação do Lighthouse](https://developer.chrome.com/docs/lighthouse/overview).
+
+`npm run preview` serve o build; as notas são calculadas pelo Lighthouse. Para comparar resultados, mantenha a mesma versão da ferramenta e as mesmas condições de cache e execução, sem extensões interferindo na página.
+
+### Resultados locais
+
+Auditorias realizadas em **11/10/2026**, com **Lighthouse 13.5.0**, no build de produção servido por `npm run preview`. Cada coluna corresponde a uma execução, com o perfil padrão de desktop ou mobile e limitação simulada de rede e CPU. O endpoint de produtos respondeu com HTTP 200 em ambas.
+
+| Categoria (0–100) | PC / Desktop | Mobile |
+|---|---:|---:|
+| SEO | 100 | 100 |
+| Desempenho | 100 | 93 |
+| Acessibilidade | 97 | 97 |
+| Boas práticas | 100 | 100 |
+
+| Métrica de desempenho | PC / Desktop | Mobile |
+|---|---:|---:|
+| Primeira pintura de conteúdo (FCP) | 0,5 s | 2,3 s |
+| Maior pintura de conteúdo (LCP) | 0,5 s | 2,8 s |
+| Tempo total de bloqueio (TBT) | 0 ms | 20 ms |
+| Mudança cumulativa de layout (CLS) | 0,002 | 0,001 |
+
+A auditoria de acessibilidade apontou contraste insuficiente em alguns elementos. Os resultados são medições de laboratório local e podem variar com a máquina, rede, serviço de produtos e hospedagem; a nota de SEO indica aprovação nas verificações automatizadas, sem garantir posicionamento em buscadores.
+
+## Como executar
+
+**Pré-requisitos:** Node.js 20 a partir de `20.19.0`, ou Node.js `>=22.12.0`, e npm. Esses intervalos correspondem aos requisitos do Vite e do plugin React instalados. O `package-lock.json` fixa as versões das dependências para uma instalação reproduzível com `npm ci`.
+
+Na raiz do projeto:
+
+```bash
+npm ci
+npm run dev
+```
+
+Acesse o endereço informado pelo Vite no terminal, normalmente `http://localhost:5173`. A consulta dos produtos e suas imagens depende de acesso à internet.
+
+Para avaliar em outra máquina, basta obter os arquivos do projeto e executar os dois comandos acima. Fontes, ícones e imagens locais já estão incluídos no repositório; não há etapa adicional de geração de assets. A execução local não exige arquivo `.env`, credenciais, backend próprio ou ferramentas além de Node.js e npm. É necessário acesso à internet para instalar as dependências e consultar o serviço de produtos da Econverse.
+
+### Validação e build
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+npm run preview
+```
+
+O build já executa a checagem de tipos e gera os arquivos de produção em `dist/`. O preview permite conferir essa versão localmente. Não há script de testes automatizados configurado; lint e checagem de tipos não substituem testes de comportamento.
+
+### Variáveis de ambiente
+
+Nenhuma variável é obrigatória para executar o projeto com o serviço original. Para alterar a configuração, crie um arquivo `.env.local`:
+
+```env
+VITE_PRODUCTS_URL=/api/products
+PRODUCTS_UPSTREAM_URL=https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json
+```
+
+| Variável | Finalidade |
+|---|---|
+| `VITE_PRODUCTS_URL` | Endereço consultado pelo frontend; incorporado ao build |
+| `PRODUCTS_UPSTREAM_URL` | Destino do proxy local do Vite, usado em desenvolvimento e preview |
+
+Reinicie o servidor após alterar as variáveis. Alterar o destino em produção também exige ajustar o rewrite da hospedagem.
+
 ## Funcionalidades e escopo
 
 - Home com header, banner principal, categorias, vitrines, parceiros, marcas e footer.
@@ -64,105 +161,8 @@ O modal usa `showModal()` para ativar o comportamento nativo de foco e bloquear 
 
 Títulos e descrições são associados ao diálogo por IDs gerados com `useId`. A interface também utiliza landmarks semânticos, labels nos campos, nomes acessíveis nos controles, foco visível e navegação das abas por setas, `Home` e `End`. O carrossel respeita a preferência por movimento reduzido.
 
-### Desempenho e SEO
-
-As fontes são servidas localmente em WOFF2, com subconjuntos latinos e `unicode-range` para carregar outras faixas apenas quando necessário. `font-display: swap` permite exibir o texto durante o carregamento. A fonte Poppins 600 e a imagem principal recebem preload; imagens secundárias utilizam carregamento adiado, e os banners possuem versões WebP para diferentes resoluções.
-
-O documento inclui idioma `pt-BR`, título, descrição, metadados sociais e dados estruturados de organização e site. Após carregar os produtos, a página adiciona um `ItemList` em JSON-LD com os itens e seus preços.
-
 ### Proxy de produtos
 
 O frontend consulta `/api/products` por padrão. No desenvolvimento e no preview, o proxy do Vite encaminha essa chamada ao JSON da Econverse, mantendo a requisição do navegador na mesma origem. Há também rewrites em `vercel.json` e `public/_redirects` para publicação em Vercel e Netlify, respectivamente.
 
 Em outra hospedagem, é necessário configurar um encaminhamento equivalente ou apontar `VITE_PRODUCTS_URL` para um endpoint que permita acesso pelo navegador. O proxy do Vite não é incluído nos arquivos estáticos do build.
-
-## Como executar
-
-**Pré-requisitos:** Node.js 20 a partir de `20.19.0`, ou Node.js `>=22.12.0`, e npm. Esses intervalos correspondem aos requisitos do Vite e do plugin React instalados. O `package-lock.json` fixa as versões das dependências para uma instalação reproduzível com `npm ci`.
-
-Na raiz do projeto:
-
-```bash
-npm ci
-npm run dev
-```
-
-Acesse o endereço informado pelo Vite no terminal, normalmente `http://localhost:5173`. A consulta dos produtos e suas imagens depende de acesso à internet.
-
-Para avaliar em outra máquina, basta obter os arquivos do projeto e executar os dois comandos acima. Fontes, ícones e imagens locais já estão incluídos no repositório; não há etapa adicional de geração de assets. A execução local não exige arquivo `.env`, credenciais, backend próprio ou ferramentas além de Node.js e npm. É necessário acesso à internet para instalar as dependências e consultar o serviço de produtos da Econverse.
-
-### Validação e build
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-npm run preview
-```
-
-O build já executa a checagem de tipos e gera os arquivos de produção em `dist/`. O preview permite conferir essa versão localmente. Não há script de testes automatizados configurado; lint e checagem de tipos não substituem testes de comportamento.
-
-### Como medir SEO e desempenho
-
-Gere o build e sirva a versão de produção localmente:
-
-```bash
-npm run build
-npm run preview
-```
-
-Abra o endereço informado no terminal, normalmente `http://localhost:4173`, no Chrome. Nas ferramentas de desenvolvedor (`F12`), acesse **Lighthouse**, selecione o modo **Navigation** e as categorias **Performance**, **Accessibility**, **Best Practices** e **SEO**. Execute uma auditoria com o perfil **Desktop** e outra com **Mobile**, conforme a [documentação do Lighthouse](https://developer.chrome.com/docs/lighthouse/overview).
-
-`npm run preview` serve o build; as notas são calculadas pelo Lighthouse. Para comparar resultados, mantenha a mesma versão da ferramenta e as mesmas condições de cache e execução, sem extensões interferindo na página.
-
-#### Resultados locais
-
-Auditorias realizadas em **11/10/2026**, com **Lighthouse 13.5.0**, no build de produção servido por `npm run preview`. Cada coluna corresponde a uma execução, com o perfil padrão de desktop ou mobile e limitação simulada de rede e CPU. O endpoint de produtos respondeu com HTTP 200 em ambas.
-
-| Categoria (0–100) | PC / Desktop | Mobile |
-|---|---:|---:|
-| SEO | 100 | 100 |
-| Desempenho | 100 | 93 |
-| Acessibilidade | 97 | 97 |
-| Boas práticas | 100 | 100 |
-
-| Métrica de desempenho | PC / Desktop | Mobile |
-|---|---:|---:|
-| Primeira pintura de conteúdo (FCP) | 0,5 s | 2,3 s |
-| Maior pintura de conteúdo (LCP) | 0,5 s | 2,8 s |
-| Tempo total de bloqueio (TBT) | 0 ms | 20 ms |
-| Mudança cumulativa de layout (CLS) | 0,002 | 0,001 |
-
-A auditoria de acessibilidade apontou contraste insuficiente em alguns elementos. Os resultados são medições de laboratório local e podem variar com a máquina, rede, serviço de produtos e hospedagem; a nota de SEO indica aprovação nas verificações automatizadas, sem garantir posicionamento em buscadores.
-
-### Variáveis de ambiente
-
-Nenhuma variável é obrigatória para executar o projeto com o serviço original. Para alterar a configuração, crie um arquivo `.env.local`:
-
-```env
-VITE_PRODUCTS_URL=/api/products
-PRODUCTS_UPSTREAM_URL=https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json
-```
-
-| Variável | Finalidade |
-|---|---|
-| `VITE_PRODUCTS_URL` | Endereço consultado pelo frontend; incorporado ao build |
-| `PRODUCTS_UPSTREAM_URL` | Destino do proxy local do Vite, usado em desenvolvimento e preview |
-
-Reinicie o servidor após alterar as variáveis. Alterar o destino em produção também exige ajustar o rewrite da hospedagem.
-
-## Estrutura
-
-```text
-src/
-  app/                # Composição da aplicação
-  pages/home/         # Composição e estilos da Home
-  components/         # Seções, vitrine, carrossel e modal de produto
-    layout/           # Header, Footer e newsletter
-    ui/               # Controles reutilizáveis e diálogo nativo
-    seo/              # Dados estruturados do catálogo
-  features/products/  # Requisição, validação, modelo e hook de produtos
-  styles/             # Tokens, mixins e estilos globais
-  assets/             # Fontes, imagens e ícones importados
-public/               # Banners, favicon e arquivos estáticos
-```
