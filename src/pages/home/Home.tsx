@@ -4,6 +4,7 @@ import { BrandList } from './BrandList/BrandList'
 import { CategoryList } from './CategoryList/CategoryList'
 import { HeroBanner } from './HeroBanner/HeroBanner'
 import { PartnerBanners } from './PartnerBanners/PartnerBanners'
+import { ProductShelf } from './ProductShelf/ProductShelf'
 import styles from './Home.module.scss'
 
 export function Home() {
@@ -13,6 +14,7 @@ export function Home() {
       <main className={styles.main}>
         <HeroBanner />
         <CategoryList />
+        <ProductShelf withTabs />
         <PartnerBanners />
         <BrandList />
       </main>

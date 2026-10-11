@@ -1,0 +1,119 @@
+@use '../../../styles/tokens' as tokens;
+@use '../../../styles/mixins' as mixins;
+
+.shelf {
+  position: relative;
+  margin-block: tokens.$space-10;
+  padding-inline: tokens.$space-4;
+
+  h2 {
+    margin: 0;
+    color: tokens.$color-primary;
+    font-size: 1.875rem;
+    text-align: center;
+  }
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: tokens.$space-6;
+  margin: tokens.$space-6 auto;
+
+  button {
+    padding: tokens.$space-2 tokens.$space-4;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: tokens.$color-text;
+    cursor: pointer;
+    font: inherit;
+  }
+}
+
+.activeTab {
+  border-bottom-color: tokens.$color-accent-dark !important;
+  color: tokens.$color-accent-dark !important;
+}
+
+.viewAll {
+  display: block;
+  width: fit-content;
+  margin: tokens.$space-6 auto;
+  color: tokens.$color-accent-dark;
+}
+
+.carousel {
+  position: relative;
+  width: min(85.25rem, 100%);
+  margin-inline: auto;
+  padding-inline: 2.9375rem;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: tokens.$card-gap;
+  padding: tokens.$space-5 0;
+  margin: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  min-width: 0;
+  min-height: 31.25rem;
+  flex-direction: column;
+  padding: 2rem 1rem 1rem 0.75rem;
+  background: tokens.$color-white;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.1875rem 1.1875rem rgb(0 0 0 / 0.22);
+}
+
+.productImage {
+  width: auto;
+  max-width: 100%;
+  height: 14.25rem;
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+.name {
+  min-height: 2.8125rem;
+  padding: 0;
+  margin-top: 0.5625rem;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: tokens.$color-text;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.listPrice { margin-top: 0.8125rem; color: tokens.$color-text-muted; }
+.price { margin-top: 0.125rem; font-size: 1.25rem; }
+.installment, .shipping { margin: 0.125rem 0 0; font-size: 0.75rem; }
+.shipping { margin-top: 0.4375rem; color: tokens.$color-primary; }
+.buy { min-height: 2.75rem; margin-top: auto; border: 0; border-radius: 0.25rem; background: tokens.$color-primary; color: tokens.$color-white; cursor: pointer; font-weight: 600; }
+.arrow { position: absolute; top: 50%; width: 2rem; height: 2rem; border: 0; border-radius: 50%; background: tokens.$color-white; box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 0.25); cursor: pointer; }
+.previous { left: 0; }
+.next { right: 0; }
+.arrow img { width: 0.5rem; }
+.flipped { transform: scaleX(-1); }
+.feedback { margin: tokens.$space-7 auto; text-align: center; }
+.feedback button { padding: tokens.$space-3 tokens.$space-5; border: 0; border-radius: 0.25rem; background: tokens.$color-primary; color: tokens.$color-white; cursor: pointer; }
+
+@media (max-width: 64rem) {
+  .products { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tabs { gap: tokens.$space-2; overflow-x: auto; justify-content: flex-start; }
+}
+
+@media (max-width: 30rem) {
+  .products { grid-template-columns: 1fr; }
+  .carousel { padding-inline: 2rem; }
+}
