@@ -1,10 +1,10 @@
 import { useId, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 
-import { Button } from '../../../shared/ui/Button/Button'
-import { Checkbox } from '../../../shared/ui/Checkbox/Checkbox'
-import { Input } from '../../../shared/ui/Input/Input'
-import { Label } from '../../../shared/ui/Label/Label'
+import { Button } from '../../ui/Button/Button'
+import { Checkbox } from '../../ui/Checkbox/Checkbox'
+import { Input } from '../../ui/Input/Input'
+import { Label } from '../../ui/Label/Label'
 import styles from './Newsletter.module.scss'
 
 export interface NewsletterSubmission {

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 import dividerIcon from '../../../assets/icons/footer-divider.svg'
 import footerLogo from '../../../assets/logo/footer-logo.svg'
-import { Link } from '../../../shared/ui/Link/Link'
+import { Link } from '../../ui/Link/Link'
 import { Newsletter } from './Newsletter'
 import type { NewsletterSubmitHandler } from './Newsletter'
 import styles from './Footer.module.scss'

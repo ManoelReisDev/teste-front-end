@@ -1,4 +1,4 @@
-import { Link } from '../../shared/ui/Link/Link'
+import { Link } from '../ui/Link/Link'
 import styles from './HeroBanner.module.scss'
 
 export function HeroBanner() {

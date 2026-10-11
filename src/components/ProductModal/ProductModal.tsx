@@ -1,7 +1,7 @@
 import { useId, useState } from 'react'
 
 import type { Product } from '../../features/products/types'
-import { Modal } from '../../shared/ui/Modal/Modal'
+import { Modal } from '../ui/Modal/Modal'
 import styles from './ProductModal.module.scss'
 
 function currency(value: number) {
