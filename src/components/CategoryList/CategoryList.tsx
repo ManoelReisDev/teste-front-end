@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react'
+import { useState } from 'react'
 
 import beverages from '../../assets/images/categories/beverages.webp'
 import fitness from '../../assets/images/categories/sports.webp'
@@ -8,7 +8,10 @@ import supermarket from '../../assets/images/categories/supermarket.webp'
 import technology from '../../assets/images/categories/technology.webp'
 import tools from '../../assets/images/categories/tools.webp'
 import styles from './CategoryList.module.scss'
+import { CategoryCard } from './CategoryCard/CategoryCard'
 
+// A tupla mantém id, rótulo e asset alinhados, reduzindo o risco de uma categoria
+// renderizar o ícone de outra ao substituir os dados estáticos.
 const categories = [
   ['technology', 'Tecnologia', technology],
   ['supermarket', 'Supermercado', supermarket],
@@ -20,7 +23,8 @@ const categories = [
 ] as const
 
 export function CategoryList() {
-  // O estado controla apenas a apresentação da categoria selecionada; a filtragem fica a cargo da integração de dados.
+  // O estado controla apenas a apresentação da categoria selecionada; a filtragem real
+  // deve ser conectada ao domínio de produtos quando essa regra estiver disponível.
   const [activeId, setActiveId] = useState('technology')
 
   return (
@@ -32,24 +36,11 @@ export function CategoryList() {
       <h2 className={styles.visuallyHidden} id="categories-title">
         Compre por categoria
       </h2>
+      {/* A lista agrupa controles relacionados e mantém a navegação semântica por teclado. */}
       <ul className={styles.list}>
         {categories.map(([id, label, icon]) => (
           <li className={styles.item} key={id}>
-            <button
-              aria-pressed={activeId === id}
-              className={`${styles.card} ${activeId === id ? styles.active : ''}`}
-              onClick={() => setActiveId(id)}
-              type="button"
-            >
-              <span className={styles.box}>
-                <span
-                  aria-hidden="true"
-                  className={styles.icon}
-                  style={{ '--category-icon': `url(${icon})` } as CSSProperties}
-                />
-              </span>
-              <span className={styles.label}>{label}</span>
-            </button>
+            <CategoryCard active={activeId === id} icon={icon} id={id} label={label} onSelect={setActiveId} />
           </li>
         ))}
       </ul>

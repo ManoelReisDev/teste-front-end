@@ -1,158 +1,85 @@
-import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from 'react'
+import { useId, useState } from 'react'
 
 import type { Product } from '../../features/products/types'
 import type { ProductsState } from '../../features/products/useProducts'
-import chevron from '../../assets/icons/chevron-left.svg'
+import { Carousel } from './Carousel/Carousel'
+import { ProductCard } from './ProductCard/ProductCard'
+import { ProductCardSkeleton } from './ProductCard/ProductCardSkeleton'
+import { ShelfTabs, type ShelfTab } from './ShelfTabs/ShelfTabs'
 import styles from './ProductShelf.module.scss'
 
-const tabs = ['Celular', 'Acessórios', 'Tablets', 'Notebooks', 'TVs', 'Ver todos']
+const shelfTabs: ShelfTab[] = [
+  { id: 'cellphone', label: 'Celular' },
+  { id: 'accessories', label: 'Acessórios' },
+  { id: 'tablets', label: 'Tablets' },
+  { id: 'notebooks', label: 'Notebooks' },
+  { id: 'televisions', label: 'TVs' },
+]
 
-function currency(value: number) {
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100)
+const skeletons = Array.from({ length: 4 }, (_, index) => index)
+
+export interface ProductShelfProps {
+  title?: string
+  variant?: 'tabs' | 'viewAll'
+  state: ProductsState
+  onRetry: () => void
+  onSelect: (product: Product) => void
+  viewAllHref?: string
 }
 
-function ProductCard({ product, onSelect }: { product: Product; onSelect: (product: Product) => void }) {
-  return (
-    <article className={styles.card}>
-      <img alt={product.name} className={styles.productImage} height={228} loading="lazy" src={product.photo} width={247} />
-      <button className={styles.name} onClick={() => onSelect(product)} type="button">{product.name}</button>
-      <s className={styles.listPrice}>{currency(product.listPrice)}</s>
-      <strong className={styles.price}>{currency(product.price)}</strong>
-      <span className={styles.installment}>ou {product.installment.count}x de {currency(product.installment.value)} sem juros</span>
-      {product.freeShipping && <span className={styles.shipping}>Frete grátis</span>}
-      <button aria-label={`Comprar ${product.name}`} className={styles.buy} onClick={() => onSelect(product)} type="button">Comprar</button>
-    </article>
-  )
-}
+export function ProductShelf({
+  title = 'Produtos relacionados',
+  variant = 'viewAll',
+  state,
+  onRetry,
+  onSelect,
+  viewAllHref = '#produtos',
+}: ProductShelfProps) {
+  const baseId = useId()
+  const titleId = `${baseId}-title`
+  const [activeTab, setActiveTab] = useState(shelfTabs[0]?.id ?? '')
 
-function useProductCarousel(itemCount: number) {
-  const viewportRef = useRef<HTMLUListElement>(null)
-  const [canPrevious, setCanPrevious] = useState(false)
-  const [canNext, setCanNext] = useState(false)
-
-  const updateControls = useCallback(() => {
-    const viewport = viewportRef.current
-    if (!viewport) return
-    const maxScroll = viewport.scrollWidth - viewport.clientWidth
-    // A tolerância evita que arredondamentos de scroll deixem uma seta habilitada por poucos pixels.
-    setCanPrevious(viewport.scrollLeft > 2)
-    setCanNext(viewport.scrollLeft < maxScroll - 2)
-  }, [])
-
-  useEffect(() => {
-    const viewport = viewportRef.current
-    if (!viewport) return
-    updateControls()
-    viewport.addEventListener('scroll', updateControls, { passive: true })
-    const observer = new ResizeObserver(updateControls)
-    observer.observe(viewport)
-    return () => {
-      viewport.removeEventListener('scroll', updateControls)
-      observer.disconnect()
-    }
-  }, [itemCount, updateControls])
-
-  const scrollByPage = useCallback((direction: 1 | -1) => {
-    const viewport = viewportRef.current
-    if (!viewport) return
-    const firstItem = viewport.firstElementChild
-    const gap = Number.parseFloat(getComputedStyle(viewport).columnGap) || 0
-    const itemWidth = firstItem instanceof HTMLElement ? firstItem.offsetWidth : viewport.clientWidth
-    // O deslocamento é calculado no momento do clique para acompanhar breakpoints e resize.
-    const visibleItems = Math.max(1, Math.floor((viewport.clientWidth + gap) / (itemWidth + gap)))
-    viewport.scrollBy({
-      left: direction * visibleItems * (itemWidth + gap),
-      behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-    })
-  }, [])
-
-  return {
-    viewportRef,
-    canPrevious,
-    canNext,
-    previous: () => scrollByPage(-1),
-    next: () => scrollByPage(1),
-  }
-}
-
-function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect: (product: Product) => void }) {
-  const { viewportRef, canPrevious, canNext, previous, next } = useProductCarousel(products.length)
-  return (
-    <div aria-label="Produtos relacionados" className={styles.carousel} role="region">
-      <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={!canPrevious} onClick={previous} type="button">
-        <img alt="" src={chevron} />
-      </button>
-      <ul aria-label="Produtos relacionados" className={styles.products} ref={viewportRef}>
-        {products.map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
-      </ul>
-      <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={next} type="button">
-        <img alt="" className={styles.flipped} src={chevron} />
-      </button>
-    </div>
-  )
-}
-
-export function ProductShelf({ state, onRetry, withTabs = false, onSelect }: { state: ProductsState; onRetry: () => void; withTabs?: boolean; onSelect: (product: Product) => void }) {
-  const titleId = useId()
-  const [activeTab, setActiveTab] = useState(tabs[0])
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
-
-  function focusTab(index: number) {
-    // O foco acompanha a aba ativa para manter a navegação por teclado dentro do tablist.
-    const nextIndex = (index + tabs.length) % tabs.length
-    setActiveTab(tabs[nextIndex])
-    tabRefs.current[nextIndex]?.focus()
-  }
-
-  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    // As teclas seguem o padrão de roving tabindex: somente a aba ativa permanece focável.
-    const actions: Record<string, () => void> = {
-      ArrowLeft: () => focusTab(index - 1),
-      ArrowRight: () => focusTab(index + 1),
-      Home: () => focusTab(0),
-      End: () => focusTab(tabs.length - 1),
-    }
-    const action = actions[event.key]
-    if (!action) return
-    event.preventDefault()
-    action()
-  }
-
+  // A seção coordena estados e composição; cada parte visual possui responsabilidade própria.
   return (
     <section aria-labelledby={titleId} className={styles.shelf}>
-      <h2 id={titleId}>Produtos relacionados</h2>
-      {withTabs ? (
-        <div aria-label="Filtrar vitrine" className={styles.tabs} role="tablist">
-          {tabs.map((tab, index) => (
-            <button
-              aria-controls={`${titleId}-panel`}
-              aria-selected={activeTab === tab}
-              className={activeTab === tab ? styles.activeTab : ''}
-              id={`${titleId}-tab-${index}`}
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              onKeyDown={(event) => handleTabKeyDown(event, index)}
-              ref={(element) => {
-                tabRefs.current[index] = element
-              }}
-              role="tab"
-              tabIndex={activeTab === tab ? 0 : -1}
-              type="button"
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      ) : <a className={styles.viewAll} href="#produtos">Ver todos</a>}
-      {state.status === 'loading' && <p className={styles.feedback}>Carregando produtos...</p>}
-      {state.status === 'error' && <div className={styles.feedback} role="alert"><p>{state.message}</p><button onClick={onRetry} type="button">Tentar novamente</button></div>}
+      <h2 id={titleId}>{title}</h2>
+      {variant === 'tabs' ? (
+        <ShelfTabs activeId={activeTab} idPrefix={baseId} onChange={setActiveTab} tabs={shelfTabs} />
+      ) : (
+        <a className={styles.viewAll} href={viewAllHref}>Ver todos</a>
+      )}
       <div
-        aria-labelledby={withTabs ? `${titleId}-tab-${tabs.indexOf(activeTab)}` : undefined}
+        aria-labelledby={variant === 'tabs' ? `${baseId}-tab-${activeTab}` : undefined}
         className={styles.panel}
-        id={`${titleId}-panel`}
-        role={withTabs ? 'tabpanel' : undefined}
+        id={`${baseId}-panel`}
+        role={variant === 'tabs' ? 'tabpanel' : undefined}
       >
-        {state.status === 'success' && (state.products.length ? <ProductCarousel onSelect={onSelect} products={state.products} /> : <p className={styles.feedback}>Nenhum produto encontrado no momento.</p>)}
+        {state.status === 'loading' && (
+          <Carousel
+            busy
+            getKey={(index) => `skeleton-${index}`}
+            items={skeletons}
+            label={`${title}: carregando`}
+            renderItem={() => <ProductCardSkeleton />}
+          />
+        )}
+        {state.status === 'error' && (
+          <div className={styles.feedback} role="alert">
+            <p>{state.message}</p>
+            <button onClick={onRetry} type="button">Tentar novamente</button>
+          </div>
+        )}
+        {state.status === 'success' && state.products.length === 0 && (
+          <p className={styles.feedback} role="status">Nenhum produto encontrado no momento.</p>
+        )}
+        {state.status === 'success' && state.products.length > 0 && (
+          <Carousel
+            getKey={(product) => product.id}
+            items={state.products}
+            label={title}
+            renderItem={(product) => <ProductCard onSelect={onSelect} product={product} />}
+          />
+        )}
       </div>
     </section>
   )

@@ -21,7 +21,7 @@ export function Home() {
       <main className={styles.main}>
         <HeroBanner />
         <CategoryList />
-        <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} withTabs />
+        <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} variant="tabs" />
         <PartnerBanners />
         <ProductShelf onRetry={retry} onSelect={setSelectedProduct} state={state} />
         <PartnerBanners title="Mais parceiros" />

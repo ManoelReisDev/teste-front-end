@@ -1,6 +1,7 @@
 @use '../../styles/tokens' as tokens;
 
 // A coluna de imagem tem largura fixa para manter o enquadramento do detalhe do produto.
+// A primeira coluna preserva a área da imagem; a segunda cresce para acomodar descrições maiores.
 .content { display: grid; grid-template-columns: 15.4375rem minmax(0, 1fr); gap: 3rem; padding: 3.5rem; }
 .image { width: 15.4375rem; height: 12rem; object-fit: cover; }
 .info { padding-top: 0.4375rem; }
@@ -15,6 +16,7 @@
 .buy { width: 11.75rem; height: 2.25rem; border: 0; border-radius: 0.375rem; background: tokens.$color-accent; color: tokens.$color-text; cursor: pointer; font-weight: 600; }
 
 @media (max-width: 37.5rem) {
+  // Em mobile, conteúdo e ações deixam de depender de duas colunas para evitar compressão horizontal.
   .content { grid-template-columns: 1fr; gap: tokens.$space-6; padding: 3rem 1.5rem tokens.$space-7; }
   .image { justify-self: center; max-width: 100%; }
   .actions { flex-wrap: wrap; }

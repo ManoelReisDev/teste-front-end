@@ -6,6 +6,7 @@
 }
 
 .list {
+  // O overflow é aplicado à lista, não à página, para manter todos os cards acessíveis em telas estreitas.
   display: flex;
   justify-content: space-between;
   gap: tokens.$space-4;
@@ -75,6 +76,7 @@
 }
 
 .active {
+  // O estado ativo usa contraste de cor, peso e sombra para não depender somente da cor do ícone.
   .box {
     background: tokens.$color-white;
     box-shadow: 0 0.125rem 0.5625rem rgba(tokens.$color-text, 0.22);

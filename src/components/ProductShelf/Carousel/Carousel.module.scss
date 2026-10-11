@@ -1,0 +1,77 @@
+@use '../../../styles/tokens' as tokens;
+
+.carousel {
+  position: relative;
+  display: flow-root;
+  width: min(85.25rem, 100%);
+  margin-inline: auto;
+  padding-inline: 2.9375rem;
+}
+
+.products {
+  --visible-products: 4;
+  display: flex;
+  gap: tokens.$card-gap;
+  padding: 1.25rem 0.5625rem 1.875rem;
+  margin: -1.25rem -0.5625rem -1.875rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.5625rem;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.slide {
+  flex: 0 0 calc((100% - #{tokens.$card-gap} * (var(--visible-products) - 1)) / var(--visible-products));
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: tokens.$color-white;
+  box-shadow: 0 0.25rem 0.25rem rgba(tokens.$color-text, 0.25);
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+
+  &:focus-visible {
+    outline: 2px solid tokens.$color-accent-dark;
+    outline-offset: 3px;
+  }
+
+  img { width: 0.5rem; }
+}
+
+.previous { left: 0; }
+.next { right: 0; }
+.flipped { transform: scaleX(-1); }
+
+@media (max-width: 64rem) {
+  .products { --visible-products: 3; }
+}
+
+@media (max-width: 48rem) {
+  .products { --visible-products: 2; }
+}
+
+@media (max-width: 30rem) {
+  .carousel { padding-inline: tokens.$space-7; }
+  .products { --visible-products: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .products { scroll-behavior: auto; }
+}

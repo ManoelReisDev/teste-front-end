@@ -15,7 +15,7 @@
 }
 
 .list {
-  // O padding reserva espaço para a sombra sem aumentar o espaçamento visual da seção.
+  // O espaço extra acomoda a elevação dos círculos sem cortar a sombra nem empurrar a próxima seção.
   display: flex;
   justify-content: center;
   gap: tokens.$space-8;
@@ -54,6 +54,7 @@
 
 @media (max-width: 74rem) {
   .list {
+    // Em telas menores, o carrossel horizontal preserva o tamanho clicável das marcas.
     justify-content: flex-start;
     gap: tokens.$space-6;
     padding-inline: tokens.$space-6;

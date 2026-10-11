@@ -6,6 +6,7 @@
 }
 
 .list {
+  // A largura acompanha o container global e o aspect ratio dos cards preserva o enquadramento do banner.
   @include mixins.container;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -99,6 +100,7 @@
 
 @media (max-width: 64rem) {
   .content {
+    // O conteúdo passa para a base do banner quando a altura disponível reduz.
     justify-content: flex-end;
     padding: tokens.$space-7;
   }
