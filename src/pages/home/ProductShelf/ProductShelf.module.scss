@@ -16,7 +16,7 @@
 
 .tabs {
   display: flex;
-  width: min(tokens.$layout-container, calc(100% - 2 * tokens.$space-4));
+  width: min(tokens.$layout-container, calc(100% + 2 * tokens.$space-4));
   margin: tokens.$space-6 auto;
   overflow-x: auto;
   scrollbar-width: none;
@@ -27,6 +27,7 @@
 
   button {
     display: inline-flex;
+    flex: 1 1 0;
     min-width: 0;
     height: 2.5rem;
     align-items: center;
@@ -150,6 +151,7 @@
   }
 
   .tabs button {
+    flex: 0 0 auto;
     min-width: 8.75rem;
     font-size: 0.875rem;
   }
