@@ -34,6 +34,7 @@ function useProductCarousel(itemCount: number) {
     const viewport = viewportRef.current
     if (!viewport) return
     const maxScroll = viewport.scrollWidth - viewport.clientWidth
+    // A tolerância evita que arredondamentos de scroll deixem uma seta habilitada por poucos pixels.
     setCanPrevious(viewport.scrollLeft > 2)
     setCanNext(viewport.scrollLeft < maxScroll - 2)
   }, [])
@@ -57,6 +58,7 @@ function useProductCarousel(itemCount: number) {
     const firstItem = viewport.firstElementChild
     const gap = Number.parseFloat(getComputedStyle(viewport).columnGap) || 0
     const itemWidth = firstItem instanceof HTMLElement ? firstItem.offsetWidth : viewport.clientWidth
+    // O deslocamento é calculado no momento do clique para acompanhar breakpoints e resize.
     const visibleItems = Math.max(1, Math.floor((viewport.clientWidth + gap) / (itemWidth + gap)))
     viewport.scrollBy({
       left: direction * visibleItems * (itemWidth + gap),
@@ -96,12 +98,14 @@ export function ProductShelf({ state, onRetry, withTabs = false, onSelect }: { s
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
 
   function focusTab(index: number) {
+    // O foco acompanha a aba ativa para manter a navegação por teclado dentro do tablist.
     const nextIndex = (index + tabs.length) % tabs.length
     setActiveTab(tabs[nextIndex])
     tabRefs.current[nextIndex]?.focus()
   }
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    // As teclas seguem o padrão de roving tabindex: somente a aba ativa permanece focável.
     const actions: Record<string, () => void> = {
       ArrowLeft: () => focusTab(index - 1),
       ArrowRight: () => focusTab(index + 1),

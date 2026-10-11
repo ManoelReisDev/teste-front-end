@@ -117,6 +117,7 @@
 }
 
 .navigation {
+  // A sombra separa a navegação do conteúdo sem adicionar uma borda visual pesada.
   height: 2.5rem;
   border-top: 1px solid tokens.$color-border-light;
   box-shadow: 0 0.5rem 1rem rgba(tokens.$color-brand-dark, 0.12);

@@ -42,6 +42,7 @@ function OptionalLink({
   href,
   variant,
 }: OptionalLinkProps) {
+  // Links sem destino continuam acessíveis, mas não simulam uma navegação inexistente.
   if (href) {
     return (
       <Link

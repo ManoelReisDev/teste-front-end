@@ -27,6 +27,8 @@ export function Link(props: LinkProps) {
     .join(' ')
 
   if (unavailable) {
+    // O href é omitido quando indisponível para não criar um destino falso, mas o elemento
+    // continua focável e anuncia aria-disabled para tecnologias assistivas.
     return (
       <a
         {...anchorProps}

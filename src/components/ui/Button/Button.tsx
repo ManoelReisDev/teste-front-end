@@ -32,6 +32,8 @@ export function Button({
       className={classNames}
       disabled={disabled}
       onClick={(event) => {
+        // "unavailable" é diferente de disabled: mantém o controle focável e sinaliza
+        // aria-disabled, mas impede uma ação que ainda não possui integração.
         if (isUnavailable) {
           event.preventDefault()
           return

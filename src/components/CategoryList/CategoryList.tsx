@@ -20,6 +20,7 @@ const categories = [
 ] as const
 
 export function CategoryList() {
+  // O estado controla apenas a apresentação da categoria selecionada; a filtragem fica a cargo da integração de dados.
   const [activeId, setActiveId] = useState('technology')
 
   return (

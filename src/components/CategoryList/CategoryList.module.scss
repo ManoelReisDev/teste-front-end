@@ -57,6 +57,7 @@
 }
 
 .icon {
+  // A máscara permite reutilizar o mesmo tratamento de cor para ícones de arquivos diferentes.
   width: 3.8125rem;
   height: 3.8125rem;
   background-color: tokens.$color-text;

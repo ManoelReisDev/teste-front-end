@@ -20,6 +20,7 @@
 }
 
 .overlay {
+  // O gradiente melhora o contraste do texto sem alterar a imagem original do banner.
   position: absolute;
   inset: 0 auto 0 0;
   z-index: -1;

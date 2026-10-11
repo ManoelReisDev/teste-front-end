@@ -12,6 +12,7 @@ export function ProductModal({ product, onClose }: { product: Product | null; on
   const titleId = useId()
   const descriptionId = useId()
   const [quantity, setQuantity] = useState(1)
+  // O modal permanece desmontado quando não há produto, evitando conteúdo invisível no documento.
   if (!product) return null
 
   return (

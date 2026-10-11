@@ -1,6 +1,7 @@
 @use '../../../styles/tokens' as tokens;
 
 .dialog {
+  // O backdrop é controlado pelo elemento nativo para cobrir a viewport sem markup extra.
   width: min(48.0625rem, calc(100% - 2rem));
   padding: 0;
   border: 0;

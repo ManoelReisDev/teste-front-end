@@ -1,6 +1,7 @@
 import brandLogo from '../../assets/icons/brand-logo.svg'
 import styles from './BrandList.module.scss'
 
+// Mantém a estrutura pronta para receber marcas reais sem repetir a marcação da lista.
 const brands = Array.from({ length: 5 }, (_, index) => ({
   id: `brand-${index + 1}`,
   label: `Econverse, marca ${index + 1}`,

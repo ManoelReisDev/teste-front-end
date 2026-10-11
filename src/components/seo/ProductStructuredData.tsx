@@ -4,6 +4,8 @@ type ProductStructuredDataProps = {
   products: Product[]
 }
 
+// O ItemList descreve a vitrine da Home sem transformar a página em um Product individual;
+// cada entrada ainda recebe os dados de oferta necessários para buscadores.
 type CatalogEntry = {
   '@type': 'ListItem'
   position: number
@@ -22,6 +24,7 @@ type CatalogEntry = {
 }
 
 function createCatalogMarkup(products: Product[]) {
+  // O preço da API é armazenado em centavos, enquanto Schema.org espera uma string decimal.
   const entries: CatalogEntry[] = products.map((product, index) => ({
     '@type': 'ListItem',
     position: index + 1,
@@ -52,6 +55,7 @@ function createCatalogMarkup(products: Product[]) {
 }
 
 function safelySerialize(value: unknown) {
+  // Escapa caracteres interpretados como HTML antes de inserir o JSON-LD no documento.
   return JSON.stringify(value)
     .replace(/</g, '\\u003c')
     .replace(/>/g, '\\u003e')
@@ -59,6 +63,7 @@ function safelySerialize(value: unknown) {
 }
 
 export function ProductStructuredData({ products }: ProductStructuredDataProps) {
+  // O bloco só é renderizado após a API carregar para evitar dados estruturados vazios ou fictícios.
   return (
     <script
       type="application/ld+json"

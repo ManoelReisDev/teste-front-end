@@ -17,6 +17,8 @@ export function Modal({ open, titleId, describedBy, closeLabel, onClose, childre
   useEffect(() => {
     const dialog = dialogRef.current
     if (!dialog) return
+    // O estado React é a fonte de verdade, mas a abertura precisa usar showModal para ativar
+    // o foco, o backdrop e o fechamento por Escape fornecidos pelo elemento nativo.
     if (open && !dialog.open) dialog.showModal()
     if (!open && dialog.open) dialog.close()
   }, [open])
@@ -27,10 +29,12 @@ export function Modal({ open, titleId, describedBy, closeLabel, onClose, childre
       aria-labelledby={titleId}
       className={styles.dialog}
       onCancel={(event) => {
+        // Impede o fechamento automático para que o estado pai também seja atualizado.
         event.preventDefault()
         onClose()
       }}
       onClick={(event) => {
+        // Apenas o clique no backdrop fecha; cliques no conteúdo permanecem isolados.
         if (event.target === event.currentTarget) onClose()
       }}
       ref={dialogRef}

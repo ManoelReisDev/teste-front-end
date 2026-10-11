@@ -34,6 +34,7 @@
 }
 
 .overlay {
+  // A camada escura mantém o texto legível sobre diferentes áreas da fotografia.
   position: absolute;
   inset: auto 0 0;
   z-index: -1;

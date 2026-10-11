@@ -1,6 +1,7 @@
 @use '../../../styles/tokens' as tokens;
 
 .checkbox {
+  // O tamanho compacto acompanha o texto da newsletter sem remover o foco nativo.
   width: 0.9375rem;
   height: 0.9375rem;
   flex-shrink: 0;

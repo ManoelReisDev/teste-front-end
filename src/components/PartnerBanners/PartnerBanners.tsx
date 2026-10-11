@@ -4,6 +4,7 @@ import styles from './PartnerBanners.module.scss'
 const partners = ['partner-one', 'partner-two']
 
 export function PartnerBanners({ title = 'Nossos parceiros' }: { title?: string }) {
+  // Os cards compartilham o mesmo conteúdo visual e variam apenas o destino do CTA.
   return (
     <section aria-label={title} className={styles.section}>
       <ul className={styles.list}>

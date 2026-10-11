@@ -1,6 +1,7 @@
 @use '../../../styles/tokens' as tokens;
 
 .button {
+  // O foco usa anéis externos para permanecer visível nos dois fundos principais da aplicação.
   min-height: tokens.$button-height;
   border: 0;
   cursor: pointer;

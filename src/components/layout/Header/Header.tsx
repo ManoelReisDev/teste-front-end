@@ -59,6 +59,7 @@ function ActionControl({
   icon,
   iconClassName,
 }: ActionControlProps) {
+  // A mesma ação pode ser um link ou um botão sem duplicar a estrutura visual do header.
   const image = <img alt="" className={iconClassName} src={icon} />
 
   if (action?.href) {

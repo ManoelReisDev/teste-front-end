@@ -101,6 +101,7 @@
 }
 
 .products {
+  // O overflow pertence à lista para que o restante da página não adquira scroll horizontal.
   --visible-products: 4;
   display: flex;
   gap: tokens.$card-gap;

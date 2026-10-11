@@ -15,6 +15,7 @@
 }
 
 .list {
+  // O padding reserva espaço para a sombra sem aumentar o espaçamento visual da seção.
   display: flex;
   justify-content: center;
   gap: tokens.$space-8;

@@ -16,6 +16,7 @@ export function Input({
   variant = 'default',
   ...props
 }: InputProps) {
+  // A variante define somente a apresentação; os atributos nativos continuam sendo repassados.
   const classNames = [styles.input, styles[variant], className]
     .filter(Boolean)
     .join(' ')

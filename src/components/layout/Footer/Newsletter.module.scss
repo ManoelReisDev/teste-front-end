@@ -66,6 +66,7 @@
 }
 
 .messages {
+  // Mensagens vazias são ocultadas para não reservar espaço depois que um erro é limpo.
   display: grid;
   gap: tokens.$space-1;
   margin-top: tokens.$space-1;

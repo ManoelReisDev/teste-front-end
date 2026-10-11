@@ -2,6 +2,7 @@ import { Link } from '../ui/Link/Link'
 import styles from './HeroBanner.module.scss'
 
 export function HeroBanner() {
+  // A imagem principal é carregada com prioridade; o conteúdo textual permanece sobreposto ao banner.
   return (
     <section aria-labelledby="hero-title" className={styles.hero}>
       <img

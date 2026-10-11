@@ -43,14 +43,18 @@ export function Newsletter({ onSubmit }: NewsletterProps) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    // Sem callback não existe integração de envio; o ref também evita submits duplicados
+    // enquanto uma chamada assíncrona anterior ainda está pendente.
     if (!onSubmit || isSubmittingRef.current) {
       return
     }
 
+    // Normaliza os campos antes de validar e de encaminhar a inscrição.
     const trimmedName = name.trim()
     const trimmedEmail = email.trim()
 
     if (!trimmedName) {
+      // O foco retorna ao primeiro campo inválido para tornar a correção imediata no teclado.
       setNameError('Informe seu nome.')
       const nameField = event.currentTarget.elements.namedItem('name')
 
