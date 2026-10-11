@@ -20,7 +20,7 @@ export function BrandList() {
           <li className={styles.item} key={id}>
             {/* O texto acessível identifica o destino enquanto a imagem decorativa evita repetição para leitores de tela. */}
             <a aria-label={label} className={styles.link} href={`#${id}`}>
-              <img alt="" height={35} loading="lazy" src={brandLogo} width={117} />
+              <img alt="" decoding="async" height={35} loading="lazy" src={brandLogo} width={117} />
             </a>
           </li>
         ))}

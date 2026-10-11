@@ -126,7 +126,7 @@ export function Footer({ destinations, onNewsletterSubmit }: FooterProps) {
           <div className={styles.brand}>
             <div className={styles.brandCopy}>
               <Link aria-label="Econverse — Página inicial" href="/" variant="icon">
-                <img alt="" src={footerLogo} />
+                <img alt="" decoding="async" loading="lazy" src={footerLogo} />
               </Link>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
@@ -147,7 +147,7 @@ export function Footer({ destinations, onNewsletterSubmit }: FooterProps) {
           </div>
 
           <div aria-hidden="true" className={styles.divider}>
-            <img className={styles.dividerImage} src={dividerIcon} />
+            <img alt="" className={styles.dividerImage} decoding="async" loading="lazy" src={dividerIcon} />
           </div>
 
           <div className={styles.columns}>

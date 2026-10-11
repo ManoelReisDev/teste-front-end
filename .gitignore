@@ -4,6 +4,8 @@ dist/
 coverage/
 *.tsbuildinfo
 .vite/
+.playwright-cli/
+output/
 
 # Logs
 *.log
