@@ -45,11 +45,12 @@
 }
 
 .content {
+  box-sizing: border-box;
   display: flex;
   height: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: 7.125rem 2.75rem 0;
+  padding: 7.125rem 2.75rem tokens.$space-7;
 }
 
 .title {
@@ -95,6 +96,18 @@
   &:focus-visible {
     outline: 2px solid tokens.$color-white;
     outline-offset: 3px;
+  }
+}
+
+@media (max-width: 80rem) {
+  // A altura do card acompanha a largura; esta faixa reduz os espaços verticais
+  // antes do breakpoint de tablet para manter o CTA afastado da borda inferior.
+  .content {
+    padding: tokens.$space-9 tokens.$space-7 tokens.$space-7;
+  }
+
+  .cta {
+    margin-top: tokens.$space-6;
   }
 }
 
