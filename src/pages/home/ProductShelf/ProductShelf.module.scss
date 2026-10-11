@@ -16,24 +16,58 @@
 
 .tabs {
   display: flex;
-  justify-content: center;
-  gap: tokens.$space-6;
+  width: min(tokens.$layout-container, calc(100% - 2 * tokens.$space-4));
   margin: tokens.$space-6 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   button {
-    padding: tokens.$space-2 tokens.$space-4;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    background: transparent;
+    display: inline-flex;
+    min-width: 0;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: tokens.$space-4 tokens.$space-2;
+    margin-right: -1px;
+    background: tokens.$color-white;
+    border: 1px solid tokens.$color-border;
     color: tokens.$color-text;
     cursor: pointer;
-    font: inherit;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1rem;
+    text-transform: uppercase;
+    transition: color 120ms ease;
+    white-space: nowrap;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      color: tokens.$color-primary;
+    }
+
+    &:focus-visible {
+      position: relative;
+      z-index: 1;
+      outline-offset: -3px;
+    }
   }
 }
 
 .activeTab {
-  border-bottom-color: tokens.$color-accent-dark !important;
-  color: tokens.$color-accent-dark !important;
+  color: tokens.$color-primary !important;
+  font-weight: 700 !important;
+}
+
+.panel {
+  min-width: 0;
 }
 
 .viewAll {
@@ -110,7 +144,15 @@
 
 @media (max-width: 48rem) {
   .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .tabs { gap: tokens.$space-2; overflow-x: auto; justify-content: flex-start; }
+  .tabs {
+    width: 100%;
+    padding-inline: tokens.$space-4;
+  }
+
+  .tabs button {
+    min-width: 8.75rem;
+    font-size: 0.875rem;
+  }
 }
 
 @media (max-width: 30rem) {

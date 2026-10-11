@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState, type KeyboardEvent } from 'react'
 
 import type { Product } from '../../../features/products/types'
 import type { ProductsState } from '../../../features/products/useProducts'
@@ -47,17 +47,63 @@ function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect
 export function ProductShelf({ state, onRetry, withTabs = false, onSelect }: { state: ProductsState; onRetry: () => void; withTabs?: boolean; onSelect: (product: Product) => void }) {
   const titleId = useId()
   const [activeTab, setActiveTab] = useState(tabs[0])
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
+
+  function focusTab(index: number) {
+    const nextIndex = (index + tabs.length) % tabs.length
+    setActiveTab(tabs[nextIndex])
+    tabRefs.current[nextIndex]?.focus()
+  }
+
+  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    const actions: Record<string, () => void> = {
+      ArrowLeft: () => focusTab(index - 1),
+      ArrowRight: () => focusTab(index + 1),
+      Home: () => focusTab(0),
+      End: () => focusTab(tabs.length - 1),
+    }
+    const action = actions[event.key]
+    if (!action) return
+    event.preventDefault()
+    action()
+  }
+
   return (
     <section aria-labelledby={titleId} className={styles.shelf}>
       <h2 id={titleId}>Produtos relacionados</h2>
       {withTabs ? (
         <div aria-label="Filtrar vitrine" className={styles.tabs} role="tablist">
-          {tabs.map((tab) => <button aria-selected={activeTab === tab} className={activeTab === tab ? styles.activeTab : ''} key={tab} onClick={() => setActiveTab(tab)} role="tab" type="button">{tab}</button>)}
+          {tabs.map((tab, index) => (
+            <button
+              aria-controls={`${titleId}-panel`}
+              aria-selected={activeTab === tab}
+              className={activeTab === tab ? styles.activeTab : ''}
+              id={`${titleId}-tab-${index}`}
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              ref={(element) => {
+                tabRefs.current[index] = element
+              }}
+              role="tab"
+              tabIndex={activeTab === tab ? 0 : -1}
+              type="button"
+            >
+              {tab}
+            </button>
+          ))}
         </div>
       ) : <a className={styles.viewAll} href="#produtos">Ver todos</a>}
       {state.status === 'loading' && <p className={styles.feedback}>Carregando produtos...</p>}
       {state.status === 'error' && <div className={styles.feedback} role="alert"><p>{state.message}</p><button onClick={onRetry} type="button">Tentar novamente</button></div>}
-      {state.status === 'success' && (state.products.length ? <ProductCarousel onSelect={onSelect} products={state.products} /> : <p className={styles.feedback}>Nenhum produto encontrado no momento.</p>)}
+      <div
+        aria-labelledby={withTabs ? `${titleId}-tab-${tabs.indexOf(activeTab)}` : undefined}
+        className={styles.panel}
+        id={`${titleId}-panel`}
+        role={withTabs ? 'tabpanel' : undefined}
+      >
+        {state.status === 'success' && (state.products.length ? <ProductCarousel onSelect={onSelect} products={state.products} /> : <p className={styles.feedback}>Nenhum produto encontrado no momento.</p>)}
+      </div>
     </section>
   )
 }
