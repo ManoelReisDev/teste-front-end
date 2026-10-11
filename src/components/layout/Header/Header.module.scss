@@ -60,11 +60,24 @@
 .logoLink {
   grid-area: logo;
   justify-self: start;
+  padding: tokens.$space-2;
+  border-radius: tokens.$radius-md;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
 
   img {
     display: block;
     width: 8.6875rem;
     height: auto;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: tokens.$color-background-soft;
+  }
+
+  &:focus-visible {
+    outline: 2px solid tokens.$color-accent;
+    outline-offset: 3px;
   }
 }
 
@@ -225,5 +238,11 @@
     gap: tokens.$space-4 tokens.$space-6;
     padding-right: tokens.$space-4;
     padding-left: tokens.$space-4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoLink {
+    transition: none;
   }
 }
