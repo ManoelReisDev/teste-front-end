@@ -29,7 +29,7 @@
   }
 
   &[aria-invalid='true'] {
-    border-color: #b42318;
+    border-color: tokens.$color-accent-dark;
   }
 }
 
@@ -49,13 +49,13 @@
   height: 2.625rem;
   padding: 0 tokens.$space-6;
   background: tokens.$color-white;
-  border-color: #e7e7e7;
+  border-color: tokens.$color-border-light;
   border-radius: 0.5rem;
   font-weight: 400;
   line-height: 1.125rem;
 
   &::placeholder {
-    color: #676767;
+    color: tokens.$color-text-muted;
   }
 }
 

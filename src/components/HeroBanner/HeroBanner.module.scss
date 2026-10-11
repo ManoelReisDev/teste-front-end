@@ -25,7 +25,7 @@
   z-index: -1;
   width: 67.0833%;
   max-width: 60.375rem;
-  background: linear-gradient(to left, rgb(0 0 0 / 0) 0%, #000 85.039%);
+  background: linear-gradient(to left, transparent 0%, tokens.$color-brand-dark 85.039%);
   opacity: 0.8;
 }
 
@@ -68,7 +68,7 @@
   margin: 2.5625rem 0 0 0.4375rem;
   background: tokens.$color-accent;
   border-radius: 0.375rem;
-  color: #161615;
+  color: tokens.$color-text;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 600;
@@ -113,7 +113,7 @@
 
   .overlay {
     width: 100%;
-    background: linear-gradient(to left, rgb(0 0 0 / 0.4) 0%, #000 85%);
+    background: linear-gradient(to left, rgba(tokens.$color-brand-dark, 0.4) 0%, tokens.$color-brand-dark 85%);
   }
 
   .content {

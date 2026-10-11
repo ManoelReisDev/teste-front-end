@@ -38,7 +38,7 @@
   inset: auto 0 0;
   z-index: -1;
   height: 74.57%;
-  background: linear-gradient(to bottom, rgb(0 0 0 / 0) 0%, #000 85.039%);
+  background: linear-gradient(to bottom, transparent 0%, tokens.$color-brand-dark 85.039%);
   opacity: 0.8;
 }
 
@@ -78,7 +78,7 @@
   margin-top: tokens.$space-7;
   background: tokens.$color-accent;
   border-radius: 0.5rem;
-  color: #161615;
+  color: tokens.$color-text;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 700;

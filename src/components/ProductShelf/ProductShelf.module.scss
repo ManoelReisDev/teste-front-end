@@ -150,7 +150,7 @@
   padding: tokens.$space-7 1rem 1rem tokens.$space-4;
   background: tokens.$color-white;
   border-radius: tokens.$radius-md;
-  box-shadow: 0 0.1875rem 1.1875rem rgb(0 0 0 / 0.22);
+  box-shadow: 0 0.1875rem 1.1875rem rgba(tokens.$color-text, 0.22);
 }
 
 .productImage {
@@ -179,7 +179,7 @@
 .installment, .shipping { margin: 0.125rem 0 0; font-size: 0.75rem; }
 .shipping { margin-top: 0.4375rem; color: tokens.$color-primary; }
 .buy { min-height: tokens.$button-height; margin-top: auto; border: 0; border-radius: tokens.$radius-sm; background: tokens.$color-primary; color: tokens.$color-white; cursor: pointer; font-weight: 600; }
-.arrow { position: absolute; top: 50%; width: 2rem; height: 2rem; border: 0; border-radius: 50%; background: tokens.$color-white; box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 0.25); cursor: pointer; }
+.arrow { position: absolute; top: 50%; width: 2rem; height: 2rem; border: 0; border-radius: 50%; background: tokens.$color-white; box-shadow: 0 0.25rem 0.25rem rgba(tokens.$color-text, 0.25); cursor: pointer; }
 .previous { left: 0; }
 .next { right: 0; }
 .arrow img { width: 0.5rem; }

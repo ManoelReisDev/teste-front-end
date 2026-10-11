@@ -1,6 +1,6 @@
 import type { Product } from '../../features/products/types'
 
-type ProductsJsonLdProps = {
+type ProductStructuredDataProps = {
   products: Product[]
 }
 
@@ -58,7 +58,7 @@ function safelySerialize(value: unknown) {
     .replace(/&/g, '\\u0026')
 }
 
-export function ProductStructuredData({ products }: ProductsJsonLdProps) {
+export function ProductStructuredData({ products }: ProductStructuredDataProps) {
   return (
     <script
       type="application/ld+json"

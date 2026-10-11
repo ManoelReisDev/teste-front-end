@@ -40,7 +40,7 @@
   }
 
   &:hover:not(.active) .box {
-    background-color: #ededed;
+    background-color: tokens.$color-surface;
   }
 }
 
@@ -52,7 +52,7 @@
   justify-content: center;
   background: tokens.$color-background-soft;
   border-radius: tokens.$radius-md;
-  box-shadow: 0 0.25rem 0.6875rem rgb(0 0 0 / 0.13);
+  box-shadow: 0 0.25rem 0.6875rem rgba(tokens.$color-text, 0.13);
   transition: background-color 120ms ease, box-shadow 120ms ease;
 }
 
@@ -76,7 +76,7 @@
 .active {
   .box {
     background: tokens.$color-white;
-    box-shadow: 0 0.125rem 0.5625rem rgb(0 0 0 / 0.22);
+    box-shadow: 0 0.125rem 0.5625rem rgba(tokens.$color-text, 0.22);
   }
 
   .icon {

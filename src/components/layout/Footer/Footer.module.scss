@@ -7,7 +7,7 @@
 
 .institutional {
   min-height: 17.625rem;
-  background: #f4f4f4;
+  background: tokens.$color-surface;
 }
 
 .institutionalInner {
@@ -75,7 +75,7 @@
     display: block;
     width: 1.5rem;
     height: 1.5rem;
-    background-color: #4a4a4a;
+    background-color: tokens.$color-text-muted;
     mask-position: center;
     mask-repeat: no-repeat;
     mask-size: contain;
@@ -127,7 +127,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(tokens.$space-6, 6.94vw, 6.25rem);
   align-items: start;
-  color: rgba(34, 34, 34, 0.71);
+  color: rgba(tokens.$color-text, 0.71);
 }
 
 .column {
