@@ -40,9 +40,14 @@ function ProductCarousel({ products, onSelect }: { products: Product[]; onSelect
       <button aria-label="Produtos anteriores" className={`${styles.arrow} ${styles.previous}`} disabled={start === 0} onClick={() => move(Math.max(0, start - visible), 'previous')} type="button">
         <img alt="" src={chevron} />
       </button>
-      <ul className={`${styles.products} ${direction ? styles[`slide${direction}`] : ''}`}>
-        {products.slice(start, start + visible).map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
-      </ul>
+      <div className={styles.productsViewport}>
+        <ul
+          className={`${styles.products} ${direction ? styles[`slide${direction}`] : ''}`}
+          key={`${start}-${direction ?? 'initial'}`}
+        >
+          {products.slice(start, start + visible).map((product) => <li key={product.id}><ProductCard onSelect={onSelect} product={product} /></li>)}
+        </ul>
+      </div>
       <button aria-label="Próximos produtos" className={`${styles.arrow} ${styles.next}`} disabled={!canNext} onClick={() => move(Math.min(maxStart, start + visible), 'next')} type="button">
         <img alt="" className={styles.flipped} src={chevron} />
       </button>
