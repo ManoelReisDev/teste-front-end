@@ -1,9 +1,15 @@
+@use './tokens' as tokens;
+
 :root {
   font-family: Arial, Helvetica, sans-serif;
-  color: #1f1f1f;
-  background: #ffffff;
+  color: tokens.$color-text;
+  background: tokens.$color-white;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+}
+
+html {
+  font-size: 100%; // 16px na configuração padrão do navegador
 }
 
 * {
