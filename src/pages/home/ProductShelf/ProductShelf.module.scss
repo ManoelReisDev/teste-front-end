@@ -96,37 +96,38 @@
   padding: tokens.$space-5 0;
   margin: 0;
   list-style: none;
+  will-change: transform, opacity;
 }
 
 .slideNext {
-  animation: slide-in-from-right 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slide-in-from-right 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .slidePrevious {
-  animation: slide-in-from-left 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slide-in-from-left 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes slide-in-from-right {
   from {
     opacity: 0;
-    transform: translateX(5rem);
+    transform: translate3d(100%, 0, 0);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slide-in-from-left {
   from {
     opacity: 0;
-    transform: translateX(-5rem);
+    transform: translate3d(-100%, 0, 0);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
