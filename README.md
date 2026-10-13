@@ -111,6 +111,28 @@ O build já executa a checagem de tipos e gera os arquivos de produção em `dis
 
 A suíte comprova contratos de componentes, interações e estados no DOM simulado. Ela não substitui a verificação em navegador de responsividade, zoom, contraste, hover, foco visível, navegação real ou comportamento completo do top layer do `dialog`.
 
+### Testes automatizados
+
+Depois de instalar as dependências com `npm ci`, execute os testes unitários dos componentes com:
+
+```bash
+npm run test
+```
+
+Para manter o runner observando alterações durante o desenvolvimento:
+
+```bash
+npm run test:watch
+```
+
+Para executar a suíte e gerar cobertura em `coverage/`:
+
+```bash
+npm run test:coverage
+```
+
+Os testes não fazem requisições ao serviço remoto de produtos. Eles usam jsdom para verificar markup acessível, estados, callbacks, validações e interações de teclado. Responsividade, zoom, contraste, hover, foco visível e navegação real devem ser conferidos no navegador.
+
 ### Variáveis de ambiente
 
 Nenhuma variável é obrigatória para executar o projeto com o serviço original. Para alterar a configuração, crie um arquivo `.env.local`:
