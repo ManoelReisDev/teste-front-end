@@ -103,9 +103,13 @@ npm run lint
 npm run typecheck
 npm run build
 npm run preview
+npm run test
+npm run test:coverage
 ```
 
-O build já executa a checagem de tipos e gera os arquivos de produção em `dist/`. O preview permite conferir essa versão localmente. Não há script de testes automatizados configurado; lint e checagem de tipos não substituem testes de comportamento.
+O build já executa a checagem de tipos e gera os arquivos de produção em `dist/`. O preview permite conferir essa versão localmente. Os testes de componentes usam Vitest, React Testing Library, `user-event` e jsdom; `npm run test:watch` inicia o modo interativo e `npm run test:coverage` gera os relatórios HTML, texto e `json-summary` em `coverage/`.
+
+A suíte comprova contratos de componentes, interações e estados no DOM simulado. Ela não substitui a verificação em navegador de responsividade, zoom, contraste, hover, foco visível, navegação real ou comportamento completo do top layer do `dialog`.
 
 ### Variáveis de ambiente
 
